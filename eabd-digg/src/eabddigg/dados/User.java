@@ -51,6 +51,20 @@ password   varchar(16)
         this.password="";
     }
 
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
     public String getNick() {
         return nick;
     }
