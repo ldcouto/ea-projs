@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -21,7 +22,7 @@ public abstract class MyFileHandler {
      * @param filename name of the file, or path to file, to create
      * @return true if file was created, false if file already exists
      */
-    public boolean createFile(String filename) {
+    public static boolean createFile(String filename) {
 
         boolean res = false;
 
@@ -50,6 +51,22 @@ public abstract class MyFileHandler {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public static void writeManyLines(String filename, List<String> lines)
+    {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename,true));
+            for (String line : lines) {
+                out.write(line);
+                out.newLine();
+            }
+            out.close();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
 }
