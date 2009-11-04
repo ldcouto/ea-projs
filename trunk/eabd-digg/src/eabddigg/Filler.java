@@ -40,7 +40,7 @@ public class Filler {
 
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/digg",
-                    "lc", "1987ldc69");
+                    "tester", "tester");
             insertUtilizadores = con.prepareStatement("insert into utilizador (nick,nome,password)" +
                                                       "values (?,?,?);");
 
