@@ -18,9 +18,9 @@ import java.util.Random;
  */
 public class Queries {
 
-    private Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
+    static Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
-    public String selectRandomUser(){
+    public static String selectRandomUser(){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
         ResultSet res;
@@ -45,7 +45,7 @@ public class Queries {
         }
     }
 
-    public String selectRandomNews(){
+    public static String selectRandomNews(){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
         ResultSet res;
@@ -71,7 +71,7 @@ public class Queries {
         }
     }
 
-    public void topTenNews(){
+    public static void topTenNews(){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug,COUNT(slug) ");
@@ -89,7 +89,7 @@ public class Queries {
         }
     }
 
-    public void topTenFollowers(){
+    public static void topTenFollowers(){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT seguido,COUNT(seguidor) ");
@@ -107,15 +107,15 @@ public class Queries {
         }
     }
 
-    public void recNews(String userNick){
+    public static void recNews(String userNick){
 
     }
 
-    public void recUsers(String userNick){
+    public static void recUsers(String userNick){
 
     }
 
-    public void allPostsMadeBy(String userNick){
+    public static void allPostsMadeBy(String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug ");
@@ -132,7 +132,7 @@ public class Queries {
         }
     }
 
-    public void allPostsLikedBy(String userNick){
+    public static void allPostsLikedBy(String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug ");
@@ -149,7 +149,7 @@ public class Queries {
         }
     }
 
-    public void allFollowersFrom(String userNick){
+    public static void allFollowersFrom(String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT seguidor ");
@@ -166,7 +166,7 @@ public class Queries {
         }
     }
 
-    public void loginUser(String userNick){
+    public static void loginUser(String userNick){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
 
@@ -183,13 +183,13 @@ public class Queries {
         }
     }
 
-    public void insertNews(String userNick){
+    public static  void insertNews(String userNick){
         String titulo;
         String url;
         Date data;
     }
 
-    public void insertVoto(String newsSlug, String userNick){
+    public static void insertVoto(String newsSlug, String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("INSERT INTO voto (slug,nick)");
