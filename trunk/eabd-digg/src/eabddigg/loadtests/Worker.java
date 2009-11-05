@@ -6,7 +6,6 @@
 package eabddigg.loadtests;
 
 import filehandler.MyFileHandler;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,25 +15,28 @@ import java.util.Random;
  */
 public class Worker extends Thread {
 
-    private Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erro;
-    int counter = 100;
+    int counter = 1000;
 
     @Override
     public void run() {
         Random r = new Random();
         ArrayList<String> lines = new ArrayList<String>(counter);
 
+        long start, end, latency;
+        long totaltime = 0;
+        double mean_time_per_query = 0.0;
+        double mean_query_per_minute = 0.0;
+
         String filname = this.getClass().getName().toString();
-
-
         MyFileHandler.createFile(filname);
+
         while (counter >= 0){
             int action = r.nextInt(12);
             
             String randomNick = Queries.selectRandomUser();
             String randomSlug = Queries.selectRandomUser();
 
-            long start = System.currentTimeMillis();
+            start = System.currentTimeMillis();
 
             switch (action) {
                 case 0 : Queries.topTenNews();
@@ -51,13 +53,28 @@ public class Worker extends Thread {
                          break;
                 case 6 : Queries.loginUser(randomNick);
                          break;
-                case 7 : Queries.insertNews();
-
+                case 7 : Queries.insertNews(randomNick);
+                         break;
+                case 8 : Queries.recNews(randomNick);
+                         break;
+                case 9 : Queries.recUsers(randomNick);
+                         break;
             }
 
-            long end = System.currentTimeMillis();
+            end = System.currentTimeMillis();
+            latency = end - start;
+
+            totaltime += latency;
+
+            lines.add("" + start + '\t' + end + '\t' + latency);
         }
+
+        mean_time_per_query = (double) totaltime / counter;
+        mean_query_per_minute = (double) counter / ((double) totaltime / 60000);
+
+        lines.add("Mean time per query: "+ mean_time_per_query);
+        lines.add("Mean queries per minute: "+ mean_query_per_minute);
+
+        MyFileHandler.writeManyLines(filname, lines);
     }
-
-
 }
