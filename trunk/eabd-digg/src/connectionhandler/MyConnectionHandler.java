@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package connectionhandles;
+package connectionhandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +14,9 @@ import java.sql.SQLException;
  */
 public abstract class MyConnectionHandler {
 
-    static public Connection con;
+    public Connection connect() {
 
-    static public void connect() {
+        Connection con;
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -36,9 +36,11 @@ public abstract class MyConnectionHandler {
             se.printStackTrace();
             System.exit(1);
         }
+
+        return con;
     }
 
-    static public void disconnect() {
+    public void disconnect(Connection con) {
         try {
             con.close();
         } catch (SQLException ex) {
