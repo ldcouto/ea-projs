@@ -87,7 +87,9 @@ public class LoadTester {
     public static void main(String[] args)
     {
         connect();
-        someQueries();
+
+
+
         disconnect();
     }   
 

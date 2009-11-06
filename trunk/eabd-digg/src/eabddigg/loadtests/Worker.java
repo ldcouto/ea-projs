@@ -27,6 +27,8 @@ public class Worker extends Thread {
         double mean_time_per_query = 0.0;
         double mean_query_per_minute = 0.0;
 
+        String query_type = new String();
+
         String filname = this.getClass().getName().toString();
         MyFileHandler.createFile(filname);
 
@@ -40,24 +42,34 @@ public class Worker extends Thread {
 
             switch (action) {
                 case 0 : Queries.topTenNews();
+                         query_type = "SELECT";
                          break;
                 case 1 : Queries.topTenFollowers();
+                         query_type = "SELECT";
                          break;
                 case 2 : Queries.allFollowersFrom(randomNick);
+                         query_type = "SELECT";
                          break;
                 case 3 : Queries.allPostsLikedBy(randomNick);
+                         query_type = "SELECT";
                          break;
                 case 4 : Queries.allPostsMadeBy(randomNick);
+                         query_type = "SELECT";
                          break;
                 case 5 : Queries.insertVoto(randomSlug, randomNick);
+                         query_type = "INSERT";
                          break;
                 case 6 : Queries.loginUser(randomNick);
+                         query_type = "SELECT";
                          break;
                 case 7 : Queries.insertNews(randomNick);
+                         query_type = "INSERT";
                          break;
                 case 8 : Queries.recNews(randomNick);
+                         query_type = "SELECT";
                          break;
                 case 9 : Queries.recUsers(randomNick);
+                         query_type = "SELECT";
                          break;
             }
 
@@ -66,7 +78,7 @@ public class Worker extends Thread {
 
             totaltime += latency;
 
-            lines.add("" + start + '\t' + end + '\t' + latency);
+            lines.add(query_type + '\t' + start + '\t' + end + '\t' + latency);
         }
 
         mean_time_per_query = (double) totaltime / counter;

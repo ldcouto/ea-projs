@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package eabddigg;
 
 import java.sql.Connection;
@@ -24,8 +23,7 @@ public class Filler {
     static PreparedStatement insertVotos;
     static PreparedStatement insertSeguidores;
 
-    static public void connect()
-    {
+    static public void connect() {
         //Checking if Driver is registered with DriverManager
 
         try {
@@ -42,16 +40,16 @@ public class Filler {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/digg",
                     "tester", "tester");
             insertUtilizadores = con.prepareStatement("insert into utilizador (nick,nome,password)" +
-                                                      "values (?,?,?);");
+                    "values (?,?,?);");
 
             insertNoticias = con.prepareStatement("insert into noticia (slug,nick,titulo,url,data)" +
-                                                  "values (?,?,?,?,?);");
+                    "values (?,?,?,?,?);");
 
             insertVotos = con.prepareStatement("insert into voto (slug,nick)" +
-                                               "values (?,?);");
+                    "values (?,?);");
 
             insertSeguidores = con.prepareStatement("insert into seguidores (seguidor,seguido)" +
-                                                    "values (?,?);");
+                    "values (?,?);");
 
         } catch (SQLException se) {
             se.printStackTrace();
@@ -61,8 +59,7 @@ public class Filler {
 
     }
 
-    static void disconect()
-    {
+    static void disconect() {
         try {
             con.close();
         } catch (SQLException ex) {
@@ -70,8 +67,7 @@ public class Filler {
         }
     }
 
-    static void insertUser(User user)
-    {
+    static void insertUser(User user) {
 
         try {
             insertUtilizadores.setString(1, user.getNick());
@@ -83,22 +79,21 @@ public class Filler {
         }
     }
 
-    static void insertNItem(NItem ni)
-    {
+    static void insertNItem(NItem ni) {
 
         try {
             insertNoticias.setString(1, ni.getSlug());
             insertNoticias.setString(2, ni.getNick());
             insertNoticias.setString(3, ni.getTitulo());
-            insertNoticias.setString(4,ni.getUrl());
+            insertNoticias.setString(4, ni.getUrl());
             insertNoticias.setDate(5, ni.getDate());
             insertNoticias.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    static void insertVote(String slug, String nick)
-    {
+
+    static void insertVote(String slug, String nick) {
 
         try {
             insertVotos.setString(1, slug);
@@ -109,8 +104,7 @@ public class Filler {
         }
     }
 
-    static void insertFollow(String nickSeguidor, String nickSeguido)
-    {
+    static void insertFollow(String nickSeguidor, String nickSeguido) {
 
         try {
             insertSeguidores.setString(1, nickSeguidor);
@@ -120,108 +114,39 @@ public class Filler {
             ex.printStackTrace();
         }
     }
-    /*
-    static void insertNoticia(NItem item)
-    {
-        StringBuilder sql = new StringBuilder();
-        String query;
-
-        sql.append("insert into noticias (slug,nick,titulo,url,data)");
-        sql.append("values");
-        sql.append("( " + item.slug);
-        sql.append(", " + item.nick);
-        sql.append(", " + item.titulo);
-        sql.append(", " + item.url);
-        sql.append(", " + item.data + " );"); //TODO: Verificar data
-
-        query = sql.toString();
-
-        try {
-            insertNoticias = con.createStatement();
-            insertNoticias.executeUpdate(query);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    static void insertVotes(String slug)
-    {
-        StringBuilder sql = new StringBuilder();
-        String query;
-
-        List<String> listVoters = votersMap.get(slug);
-
-        for(String elem : listVoters) {
-            sql.append("insert into voto (slug,nick)");
-            sql.append("values");
-            sql.append("( " + slug);
-            sql.append(", " + elem + " );");
-
-            query = sql.toString();
-
-            try {
-                insertVotos = con.createStatement();
-                insertVotos.executeUpdate(query);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    static void insertFollowers(String nick)
-    {
-        StringBuilder sql = new StringBuilder();
-        String query;
-
-        List<String> listFollowers = followersMap.get(nick);
-
-        for (String elem : listFollowers) {
-            sql.append("insert into voto (seguidor,seguido)");
-            sql.append("values");
-            sql.append("( " + elem);
-            sql.append(", " + nick + " );");
-
-            query = sql.toString();
-
-            try {
-                insertVotos = con.createStatement();
-                insertVotos.executeUpdate(query);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    */
 
     /**
      * @param args the command line arguments
      */
-
-    public void fillBD(Sistema sys){
+    public void fillBD(Sistema sys) {
         sys.makeSistema();
 
         // Connect to the DB
         connect();
         //Let's insert the users...
-        for(User u : sys.getUsers())
+        for (User u : sys.getUsers()) {
             insertUser(u);
+        }
 
         // Let's insert the news...
-        for (NItem ni : sys.getNews())
+        for (NItem ni : sys.getNews()) {
             insertNItem(ni);
+        }
 
         // Let's insert the votes
-        for (String slug :sys.getVotes().keySet())
-            for (String nick : sys.getVotes().get(slug))
+        for (String slug : sys.getVotes().keySet()) {
+            for (String nick : sys.getVotes().get(slug)) {
                 insertVote(slug, nick);
+            }
+        }
 
-       // Let's insert the followers
-       for (String seguido : sys.getLikes().keySet())
-           for (String seguidor : sys.getLikes().get(seguido))
-               insertFollow(seguidor, seguido);
+        // Let's insert the followers
+        for (String seguido : sys.getLikes().keySet()) {
+            for (String seguidor : sys.getLikes().get(seguido)) {
+                insertFollow(seguidor, seguido);
+            }
+        }
 
 
     }
-
 }
