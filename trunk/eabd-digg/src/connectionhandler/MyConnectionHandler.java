@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public abstract class MyConnectionHandler {
 
-    public Connection connect() {
+    public static Connection connect() {
 
         Connection con;
 
@@ -40,7 +40,7 @@ public abstract class MyConnectionHandler {
         return con;
     }
 
-    public void disconnect(Connection con) {
+    public static void disconnect(Connection con) {
         try {
             con.close();
         } catch (SQLException ex) {
