@@ -5,6 +5,7 @@
 
 package eabddigg.loadtests;
 
+import connectionhandler.MyConnectionHandler;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -18,9 +19,13 @@ import java.util.Random;
  */
 public class Queries {
 
-    static Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
+    Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
-    public static String selectRandomUser(){
+    public Queries(){
+        con = MyConnectionHandler.connect();
+    }
+
+    public String selectRandomUser(){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
         ResultSet res;
@@ -30,6 +35,7 @@ public class Queries {
         sql.append("FROM utilizador ");
         sql.append("LIMIT 1 OFFSET " + r.nextInt(8000));
         sql.append(";");
+        String killme = sql.toString();
         try {
             Statement st = con.createStatement();
             res = st.executeQuery(sql.toString());
@@ -45,7 +51,7 @@ public class Queries {
         }
     }
 
-    public static String selectRandomNews(){
+    public  String selectRandomNews(){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
         ResultSet res;
@@ -71,7 +77,7 @@ public class Queries {
         }
     }
 
-    public static void topTenNews(){
+    public  void topTenNews(){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug,COUNT(slug) ");
@@ -89,7 +95,7 @@ public class Queries {
         }
     }
 
-    public static void topTenFollowers(){
+    public  void topTenFollowers(){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT seguido,COUNT(seguidor) ");
@@ -107,7 +113,7 @@ public class Queries {
         }
     }
 
-    public static void recNews(String userNick){
+    public  void recNews(String userNick){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT slug FROM voto JOIN seguidores ON");
         sb.append(" voto.nick=seguidores.seguido");
@@ -115,7 +121,7 @@ public class Queries {
         sb.append("'"+ userNick +"'");
         sb.append(" AND voto.nick!=");
         sb.append("'"+userNick+"'");
-        sb.append(';');
+        sb.append(" LIMIT 3;"); // Se calhar precisas de um offset.
         String sql = sb.toString();
 
         try {
@@ -125,18 +131,32 @@ public class Queries {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
+    } 
+
+    public  void recUsers(String userNick){
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT filhos.seguido");
+        sb.append(" FROM seguidores pais JOIN seguidores filhos ON");
+        sb.append(" pais.seguido=filhos.seguidor");
+        sb.append(" WHERE pais.seguidor=");
+        sb.append("'"+ userNick +"'");
+        sb.append(" AND filhos.seguidor!=");
+        sb.append("'"+userNick+"'");
+        sb.append(" LIMIT 3;"); // Se calhar precisas de um offset.
+        String sql = sb.toString();
+
+        try {
+            Statement st = con.createStatement();
+            st.executeQuery(sql);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
     }
 
-
-    
-
-    public static void recUsers(String userNick){
-
-    }
-
-    public static void allPostsMadeBy(String userNick){
+    public  void allPostsMadeBy(String userNick){
         StringBuilder sql = new StringBuilder();
-
         sql.append("SELECT slug ");
         sql.append("FROM noticia");
         sql.append("WHERE nick = " + userNick);
@@ -151,7 +171,7 @@ public class Queries {
         }
     }
 
-    public static void allPostsLikedBy(String userNick){
+    public  void allPostsLikedBy(String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug ");
@@ -168,7 +188,7 @@ public class Queries {
         }
     }
 
-    public static void allFollowersFrom(String userNick){
+    public  void allFollowersOf(String userNick){
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT seguidor ");
@@ -185,7 +205,7 @@ public class Queries {
         }
     }
 
-    public static void loginUser(String userNick){
+    public  void loginUser(String userNick){
         StringBuilder sql = new StringBuilder();
         Random r = new Random();
 
@@ -202,21 +222,43 @@ public class Queries {
         }
     }
 
-    public static  void insertNews(String userNick){
-        String titulo;
-        String url;
-        Date data;
-    }
+    public  void insertNews(String userNick){
+        Random rand = new Random();
+        String titulo="'intitle"+rand.nextInt()+"'";
+        String url="'inurl"+rand.nextInt()+"'";
+        String slug="'irslug"+rand.nextInt()+"'";
+        StringBuilder sb = new StringBuilder();
+        sb.append("'"+(rand.nextInt(3000)+1970));
+        sb.append('-');
+        sb.append((rand.nextInt(11)+1));
+        sb.append('-');
+        sb.append((rand.nextInt(27)+1)+"'");
+        String data=sb.toString();
 
-    public static void insertVoto(String newsSlug, String userNick){
         StringBuilder sql = new StringBuilder();
 
-        sql.append("INSERT INTO voto (slug,nick)");
-        sql.append("VALUES ("+newsSlug+","+userNick+");");
+        sql.append("INSERT INTO noticia (slug, titulo, url, data, nick)");
+        sql.append("VALUES (" +slug+ ","+titulo+","+url+","+data+",'"+userNick+ "');");
+ //       String killme = sql.toString();
 
         try {
             Statement st = con.createStatement();
-            st.executeQuery(sql.toString());
+            st.executeUpdate(sql.toString());
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    public  void insertVoto(String newsSlug, String userNick){
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("INSERT INTO voto (slug,nick)");
+        sql.append("VALUES ("+"'"+newsSlug+"'"+","+"'"+userNick+"'"+");");
+   //     String killme = sql.toString();
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate(sql.toString());
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
