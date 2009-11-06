@@ -19,6 +19,16 @@ public class QueryTests {
     public static void main(String[] args)
     {
         long ti, tf;
+        System.out.println("Testing TopTenNews...");
+        ti = System.currentTimeMillis();
+        testTopTenNews();
+        tf = System.currentTimeMillis();
+        System.out.println("TopTenNews completed in " + (tf-ti) + " ms.");
+/*        System.out.println("Testing TopTenFollowers...");
+        ti = System.currentTimeMillis();
+        testTopTenFollowers();
+        tf = System.currentTimeMillis();
+        System.out.println("TopTenFollowers completed in " + (tf-ti) + " ms.");
         System.out.println("Testing RecNews...");
         ti = System.currentTimeMillis();
         testRecNews();
@@ -37,38 +47,12 @@ public class QueryTests {
         System.out.println("Testing InsertNews...");
         ti = System.currentTimeMillis();
         testInsNews();
-        tf = System.currentTimeMillis();
+*/
+ tf = System.currentTimeMillis();
         System.out.println("InsertNews completed in" + (tf-ti) + " ms.");
     }
-    
-    // Invoker Methods
 
-        public static void testRecNews()
-    {
-        Queries myQ = new Queries();
-        String dude = removeSpecialCharacters(myQ.selectRandomUser());
-        myQ.recNews(dude);
-    }
-
-    private static void testRecUsers() {
-        Queries myQ = new Queries();
-        String dude = removeSpecialCharacters(myQ.selectRandomUser());
-        myQ.recUsers(dude);
-    }
-
-    private static void testInsVote() {
-        Queries myQ = new Queries();
-        myQ.insertVoto(myQ.selectRandomNews(),myQ.selectRandomUser());
-   }
-
-    private static void testInsNews() {
-        Queries myQ = new Queries();
-        myQ.insertNews("banglast");
-    }
-
-
-    // Aux Functions
-
+        // Aux Functions
      static public String removeSpecialCharacters(String orig)
       {
             String rv;
@@ -101,6 +85,42 @@ public class QueryTests {
 
             return(rv);
       }
+
+    
+    // Invoker Methods
+
+    private static void testRecNews()
+    {
+        Queries myQ = new Queries();
+        String dude = removeSpecialCharacters(myQ.selectRandomUser());
+        myQ.recNews(dude);
+    }
+
+    private static void testRecUsers() {
+        Queries myQ = new Queries();
+        String dude = removeSpecialCharacters(myQ.selectRandomUser());
+        myQ.recUsers(dude);
+    }
+
+    private static void testInsVote() {
+        Queries myQ = new Queries();
+        myQ.insertVoto(myQ.selectRandomNews(),myQ.selectRandomUser());
+   }
+
+    private static void testInsNews() {
+        Queries myQ = new Queries();
+        myQ.insertNews("banglast");
+    }
+
+    private static void testTopTenFollowers() {
+        Queries myQ = new Queries();
+        myQ.topTenFollowers();
+    }
+
+    private static void testTopTenNews() {
+        Queries myQ = new Queries();
+        myQ.topTenNews();
+    }
 
 
 }

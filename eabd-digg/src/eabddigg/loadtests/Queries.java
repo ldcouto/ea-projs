@@ -83,8 +83,10 @@ public class Queries {
         sql.append("SELECT slug,COUNT(slug) ");
         sql.append("FROM voto ");
         sql.append("GROUP BY slug ");
-        sql.append("ORDER BY count DESC ");
+        sql.append("ORDER BY count(slug) DESC ");
         sql.append("LIMIT 10;");
+
+        String killme = sql.toString();
 
         try {
             Statement st = con.createStatement();
@@ -158,8 +160,8 @@ public class Queries {
     public  void allPostsMadeBy(String userNick){
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT slug ");
-        sql.append("FROM noticia");
-        sql.append("WHERE nick = " + userNick);
+        sql.append(" FROM noticia");
+        sql.append(" WHERE nick = " + "'"+userNick+"'");
         sql.append(";");
 
         try {
@@ -175,8 +177,8 @@ public class Queries {
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT slug ");
-        sql.append("FROM voto");
-        sql.append("WHERE nick = " + userNick);
+        sql.append(" FROM voto");
+        sql.append(" WHERE nick = " + "'"+userNick+"'");
         sql.append(";");
         
         try {
@@ -193,7 +195,7 @@ public class Queries {
 
         sql.append("SELECT seguidor ");
         sql.append("FROM seguidores ");
-        sql.append("WHERE seguido = " + userNick);
+        sql.append("WHERE seguido = " + "'"+userNick+"'");
         sql.append(";");
 
         try {
@@ -211,7 +213,7 @@ public class Queries {
 
         sql.append("SELECT nick ");
         sql.append("FROM utilizador ");
-        sql.append("WHERE nick=" + userNick);
+        sql.append("WHERE nick=" + "'"+userNick+"'");
         sql.append(";");
         try {
             Statement st = con.createStatement();
