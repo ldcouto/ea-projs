@@ -13,6 +13,7 @@ import java.util.Random;
  *
  * @author fork
  */
+/*
 public class Worker extends Thread {
 
     int counter = 1000;
@@ -90,3 +91,4 @@ public class Worker extends Thread {
         MyFileHandler.writeManyLines(filname, lines);
     }
 }
+*/
