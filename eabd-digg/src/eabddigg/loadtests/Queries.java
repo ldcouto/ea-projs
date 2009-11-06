@@ -108,8 +108,27 @@ public class Queries {
     }
 
     public static void recNews(String userNick){
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT slug FROM voto JOIN seguidores ON");
+        sb.append(" voto.nick=seguidores.seguido");
+        sb.append(" WHERE seguidores.seguidor=");
+        sb.append("'"+ userNick +"'");
+        sb.append(" AND voto.nick!=");
+        sb.append("'"+userNick+"'");
+        sb.append(';');
+        String sql = sb.toString();
 
+        try {
+            Statement st = con.createStatement();
+            st.executeQuery(sql);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
+
+
+    
 
     public static void recUsers(String userNick){
 
