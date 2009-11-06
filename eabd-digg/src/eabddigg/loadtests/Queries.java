@@ -239,7 +239,7 @@ public class Queries {
 
         sql.append("INSERT INTO noticia (slug, titulo, url, data, nick)");
         sql.append("VALUES (" +slug+ ","+titulo+","+url+","+data+",'"+userNick+ "');");
- //       String killme = sql.toString();
+ //      --- String killme = sql.toString();
 
         try {
             Statement st = con.createStatement();
