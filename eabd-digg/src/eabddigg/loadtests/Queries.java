@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package eabddigg.loadtests;
 
 import connectionhandler.MyConnectionHandler;
@@ -17,12 +16,17 @@ import java.util.Random;
  *
  * @author lc
  */
-public class Queries {
+public class Queries
+{
 
     Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
     public Queries(){
         con = MyConnectionHandler.connect();
+    }
+
+    public Queries(Connection con){
+        this.con=con;
     }
 
     public String selectRandomUser(){
@@ -43,10 +47,12 @@ public class Queries {
 
             nick = res.getString(1);
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
-        } finally {
+        }
+        finally {
             return nick;
         }
     }
@@ -69,10 +75,12 @@ public class Queries {
 
             slug = res.getString(1);
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
-        } finally {
+        }
+        finally {
             return slug;
         }
     }
@@ -91,7 +99,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -109,7 +118,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -120,16 +130,17 @@ public class Queries {
         sb.append("SELECT slug FROM voto JOIN seguidores ON");
         sb.append(" voto.nick=seguidores.seguido");
         sb.append(" WHERE seguidores.seguidor=");
-        sb.append("'"+ userNick +"'");
+        sb.append("'" + userNick + "'");
         sb.append(" AND voto.nick!=");
-        sb.append("'"+userNick+"'");
+        sb.append("'" + userNick + "'");
         sb.append(" LIMIT 3;"); // Se calhar precisas de um offset.
         String sql = sb.toString();
 
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql);
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -167,7 +178,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -180,11 +192,12 @@ public class Queries {
         sql.append(" FROM voto");
         sql.append(" WHERE nick = " + "'"+userNick+"'");
         sql.append(";");
-        
+
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -201,7 +214,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -218,7 +232,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeQuery(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -261,7 +276,8 @@ public class Queries {
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sql.toString());
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
