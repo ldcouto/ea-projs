@@ -5,15 +5,8 @@
 
 package eabddigg;
 
-import eabddigg.dados.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import eabddigg.loadtests.Worker;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,76 +14,31 @@ import java.util.logging.Logger;
  */
 public class LoadTester {
 
-    private static Connection con;
+    public static void main(String[] args){
+        int numThreads = 10;
 
+        ArrayList<Thread> threads = new ArrayList<Thread>(numThreads);
 
-    static public void connect() {
-        //Checking if Driver is registered with DriverManager
+        int i = 0;
 
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException cnfe) {
-            System.err.println("Couldn't find the driver!");
-            cnfe.printStackTrace();
-            System.exit(1);
+        while(i < numThreads){
+            Worker w = new Worker();
+            w.start();
+            threads.add(w);
+            i++;
         }
 
-        con = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/digg",
-                    "tester", "tester");
-        } catch (SQLException se) {
-            se.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    static public void disconnect() {
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    static public void someQueries()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT * FROM ");
-        sb.append("utilizador ");
-        sb.append("limit 100;");
-
-        Statement miniQuery;
-        ResultSet aux= null;
-        ArrayList<User> users = new ArrayList<User>();
-        try {
-            miniQuery = con.createStatement();
-            String query = sb.toString();
-            aux = miniQuery.executeQuery(query);
-            while (aux.next())
-            {
-                User u = new User();
-                u.setNick(aux.getString("nick"));
-                u.setNick(aux.getString("nome"));
-                u.setNick(aux.getString("password"));
-                users.add(u);
+        i = 0;
+        while (i < numThreads){
+            try {
+                threads.get(i).join();
+            } catch (InterruptedException ex) {
+                System.err.println(ex.getMessage());
+                ex.printStackTrace();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoadTester.class.getName()).log(Level.SEVERE, null, ex);
+            i++;
         }
-        if (aux == null)
-            return;
-        System.out.println("Apanhei " + users.size()+" utilizadores.");
+
+        System.out.println("Done running "+numThreads+ " workers.");
     }
-
-    public static void main(String[] args)
-    {
-        connect();
-
-
-
-        disconnect();
-    }   
-
 }
