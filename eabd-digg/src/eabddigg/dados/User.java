@@ -86,7 +86,7 @@ password   varchar(16)
             String b = "";
             String c = "";
         try {
-            fin = new FileReader("mats/uwords.txt");
+            fin = new FileReader("mats/inputs/uwords.txt");
             Scanner src = new Scanner(fin);
             //String holder = "";
             User temporario = new User();

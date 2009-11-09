@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class LoadTester {
 
     public static void main(String[] args){
-        int numThreads = 1;
+        int numThreads = 50;
 
         ArrayList<Thread> threads = new ArrayList<Thread>(numThreads);
 

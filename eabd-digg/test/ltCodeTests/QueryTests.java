@@ -45,10 +45,9 @@ public class QueryTests
         System.out.println("Testing InsertNews...");
         ti = System.currentTimeMillis();
         testInsNews();
-         */
         tf = System.currentTimeMillis();
-        System.out.println("InsertNews completed in" + (tf - ti) + " ms.");
-    }
+        System.out.println("InsertNews completed in " + (tf - ti) + " ms.");
+ */   }
 
     // Aux Functions
     static public String removeSpecialCharacters(String orig)

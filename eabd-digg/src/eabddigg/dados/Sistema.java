@@ -91,7 +91,7 @@ public class Sistema {
 
             FileReader fin = null;
         try {
-            fin = new FileReader("mats/nwords.txt");
+            fin = new FileReader("mats/inputs/nwords.txt");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
         }
