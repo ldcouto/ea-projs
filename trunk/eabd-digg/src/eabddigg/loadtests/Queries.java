@@ -5,6 +5,7 @@
 package eabddigg.loadtests;
 
 import connectionhandler.MyConnectionHandler;
+import stringhandler.MyStrings;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -53,6 +54,7 @@ public class Queries
             ex.printStackTrace();
         }
         finally {
+            nick = MyStrings.removeSpecialCharacters(nick);
             return nick;
         }
     }
@@ -81,6 +83,7 @@ public class Queries
             ex.printStackTrace();
         }
         finally {
+            slug = MyStrings.removeSpecialCharacters(slug);
             return slug;
         }
     }

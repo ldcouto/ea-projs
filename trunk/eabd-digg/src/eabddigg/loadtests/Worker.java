@@ -40,7 +40,7 @@ public class Worker extends Thread {
         MyFileHandler.createFile(filname);
 
         while (counter >= 0){
-            int action = r.nextInt(12);
+            int action = r.nextInt(10);
             
             String randomNick = queries.selectRandomUser();
             String randomSlug = queries.selectRandomUser();
