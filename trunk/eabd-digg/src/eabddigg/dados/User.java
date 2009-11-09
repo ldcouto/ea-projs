@@ -81,7 +81,7 @@ password   varchar(16)
 
    public static List<User> getManyUsers(){
             FileReader fin = null;
-            ArrayList<User> r = new ArrayList<User>(12000);
+            ArrayList<User> r = new ArrayList<User>(1200);
             String a = "";
             String b = "";
             String c = "";
@@ -90,7 +90,8 @@ password   varchar(16)
             Scanner src = new Scanner(fin);
             //String holder = "";
             User temporario = new User();
-            while (src.hasNext()) {
+            int i =1200;
+            while (src.hasNext() && i>0) {
                 if (src.hasNext()) {
                     a = src.next();
                 }
@@ -103,6 +104,7 @@ password   varchar(16)
 
                 temporario = new User(a, b, c);
                 r.add(temporario);
+                i--;
             }
             fin.close();
             } catch (IOException ex) {

@@ -59,7 +59,7 @@ public class Filler {
 
     }
 
-    static void disconect() {
+    static void disconnect() {
         try {
             con.close();
         } catch (SQLException ex) {
@@ -115,10 +115,16 @@ public class Filler {
         }
     }
 
+    public static void main(String[] args)
+    {
+        Sistema s = new Sistema();
+        Filler.fillBD(s);
+    }
+
     /**
      * @param args the command line arguments
      */
-    public void fillBD(Sistema sys) {
+    public static void fillBD(Sistema sys) {
         sys.makeSistema();
 
         // Connect to the DB
@@ -146,6 +152,7 @@ public class Filler {
                 insertFollow(seguidor, seguido);
             }
         }
+        disconnect();
 
 
     }
