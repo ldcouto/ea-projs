@@ -38,7 +38,7 @@ public class Queries
 
         sql.append("SELECT nick ");
         sql.append("FROM utilizador ");
-        sql.append("LIMIT 1 OFFSET " + r.nextInt(8000));
+        sql.append("LIMIT 1 OFFSET " + r.nextInt(800));
         sql.append(";");
         String killme = sql.toString();
         try {
@@ -97,7 +97,7 @@ public class Queries
         sql.append("ORDER BY count(slug) DESC ");
         sql.append("LIMIT 10;");
 
-        String killme = sql.toString();
+ //      String killme = sql.toString();
 
         try {
             Statement st = con.createStatement();
