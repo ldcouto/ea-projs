@@ -43,12 +43,12 @@ public class Worker extends Thread {
 
         String query_type = new String();
 
-        String filname ="mats/worker_output_"+index+".txt";
+        String filname ="mats/outputs/worker_output_"+index+".txt";
         MyFileHandler.createFile(filname);
 
         int i = 0;
         while (i < counter){
-            int action = r.nextInt(10);
+            int action = r.nextInt(20);
             
             String randomNick = queries.selectRandomUser();
             String randomSlug = queries.selectRandomUser();
@@ -56,34 +56,54 @@ public class Worker extends Thread {
             start = System.currentTimeMillis();
 
             switch (action) {
-                case 0 : queries.topTenNews();
-                         query_type = "TOP10NEWS";
-                         break;
-                case 1 : queries.topTenFollowers();
-                         query_type = "TOP10FOLL";
-                         break;
-                case 2 : queries.allFollowersOf(randomNick);
-                         query_type = "FOLlFROM";
-                         break;
-                case 3 : queries.allPostsLikedBy(randomNick);
-                         query_type = "VOTESFROM";
-                         break;
-                case 4 : queries.allPostsMadeBy(randomNick);
-                         query_type = "NEWSFROM";
-                         break;
-                case 5 : queries.insertVoto(randomSlug, randomNick);
-                         query_type = "NEWVOTE";
-                         break;
-                case 6 : queries.loginUser(randomNick);
-                         query_type = "LOGIN";
-                         break;
-                case 7 : queries.insertNews(randomNick);
-                         query_type = "NEWPOST";
-                         break;
-                case 8 : queries.recNews(randomNick);
-                         query_type = "RECNEWS";
-                         break;
-                case 9 : queries.recUsers(randomNick);
+                case 0 :
+                case 1 :
+                    queries.topTenNews();
+                    query_type = "TOP10NEWS";
+                    break;
+                case 2:
+                case 3:
+                    queries.topTenFollowers();
+                    query_type = "TOP10FOLL";
+                    break;
+                case 4 :
+                    queries.allFollowersOf(randomNick);
+                    query_type = "FOLlFROM";
+                    break;
+                case 5 :
+                    queries.allPostsLikedBy(randomNick);
+                    query_type = "VOTESFROM";
+                    break;
+                case 6 :
+                    queries.allPostsMadeBy(randomNick);
+                    query_type = "NEWSFROM";
+                    break;
+                case 7 :
+                case 8 :
+                    queries.insertVoto(randomSlug, randomNick);
+                    query_type = "NEWVOTE";
+                    break;
+                case 9 :
+                case 10:
+                    queries.loginUser(randomNick);
+                    query_type = "LOGIN";
+                    break;
+                case 11:
+                    queries.insertNews(randomNick);
+                    query_type = "NEWPOST";
+                    break;
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    queries.recNews(randomNick);
+                    query_type = "RECNEWS";
+                    break;
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                    queries.recUsers(randomNick);
                          query_type = "RECUSERS";
                          break;
             }
