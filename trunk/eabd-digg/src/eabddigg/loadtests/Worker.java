@@ -18,10 +18,17 @@ import java.util.Random;
 
 public class Worker extends Thread {
 
-    int counter = 1000;
+    int counter;
+    int index;
+
+    public Worker(int i){
+        this.index=i;
+        this.counter=100;
+    }
 
     @Override
     public void run() {
+
 
         Connection con = MyConnectionHandler.connect();
         Queries queries = new Queries(con);
@@ -36,10 +43,11 @@ public class Worker extends Thread {
 
         String query_type = new String();
 
-        String filname = this.getClass().getName().toString();
+        String filname ="mats/worker_output_"+index+".txt";
         MyFileHandler.createFile(filname);
 
-        while (counter >= 0){
+        int i = 0;
+        while (i < counter){
             int action = r.nextInt(10);
             
             String randomNick = queries.selectRandomUser();
@@ -49,34 +57,34 @@ public class Worker extends Thread {
 
             switch (action) {
                 case 0 : queries.topTenNews();
-                         query_type = "SELECT";
+                         query_type = "TOP10NEWS";
                          break;
                 case 1 : queries.topTenFollowers();
-                         query_type = "SELECT";
+                         query_type = "TOP10FOLL";
                          break;
                 case 2 : queries.allFollowersOf(randomNick);
-                         query_type = "SELECT";
+                         query_type = "FOLlFROM";
                          break;
                 case 3 : queries.allPostsLikedBy(randomNick);
-                         query_type = "SELECT";
+                         query_type = "VOTESFROM";
                          break;
                 case 4 : queries.allPostsMadeBy(randomNick);
-                         query_type = "SELECT";
+                         query_type = "NEWSFROM";
                          break;
                 case 5 : queries.insertVoto(randomSlug, randomNick);
-                         query_type = "INSERT";
+                         query_type = "NEWVOTE";
                          break;
                 case 6 : queries.loginUser(randomNick);
-                         query_type = "SELECT";
+                         query_type = "LOGIN";
                          break;
                 case 7 : queries.insertNews(randomNick);
-                         query_type = "INSERT";
+                         query_type = "NEWPOST";
                          break;
                 case 8 : queries.recNews(randomNick);
-                         query_type = "SELECT";
+                         query_type = "RECNEWS";
                          break;
                 case 9 : queries.recUsers(randomNick);
-                         query_type = "SELECT";
+                         query_type = "RECUSERS";
                          break;
             }
 
@@ -86,6 +94,9 @@ public class Worker extends Thread {
             totaltime += latency;
 
             lines.add(query_type + '\t' + start + '\t' + end + '\t' + latency);
+
+            System.out.println("Done executing "+ (i+1) +" queries");
+            i++;
         }
 
         mean_time_per_query = (double) totaltime / counter;

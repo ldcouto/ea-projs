@@ -15,18 +15,20 @@ import java.util.ArrayList;
 public class LoadTester {
 
     public static void main(String[] args){
-        int numThreads = 10;
+        int numThreads = 1;
 
         ArrayList<Thread> threads = new ArrayList<Thread>(numThreads);
 
         int i = 0;
 
         while(i < numThreads){
-            Worker w = new Worker();
+            Worker w = new Worker(i);
             w.start();
             threads.add(w);
             i++;
         }
+
+        System.out.println("Done starting "+numThreads+" workers");
 
         i = 0;
         while (i < numThreads){
