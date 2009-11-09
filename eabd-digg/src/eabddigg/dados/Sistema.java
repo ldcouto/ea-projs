@@ -99,9 +99,9 @@ public class Sistema {
 
 
         // Let's add the no-lifers first
-        for (int i=0; i<500;i++){
+        for (int i=0; i<300;i++){
             nick = this.getRandomUsername();
-            for (int j=0; j<500+r.nextInt(100);j++){
+            for (int j=0; j<50+r.nextInt(10);j++){
                 if (src.hasNext())
                     slug=src.next();
                 if (src.hasNext())
@@ -135,7 +135,7 @@ public class Sistema {
         Random r = new Random();
         for (User u : users) {
             ArrayList<String> gostadores = new ArrayList<String>();
-            for (int i=0;i<r.nextInt(20);i++)
+            for (int i=0;i<5+r.nextInt(10);i++)
                 gostadores.add(this.getRandomUsername());
             likes.put(u.nick, gostadores);
         }
@@ -153,7 +153,7 @@ public class Sistema {
         Random rand = new Random();
         ArrayList<String> aux = new ArrayList<String>();
 
-        for(int i=0;i<(10+rand.nextInt(1000));i++)
+        for(int i=0;i<(10+rand.nextInt(90));i++)
             aux.add(this.getRandomUsername());
 
         votes.put(slug, aux);
