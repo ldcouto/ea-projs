@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public abstract class MyConnectionHandler {
 
-    public static Connection connect() {
+    public static Connection connect(String jdbcUrl, String user, String pass) {
 
         Connection con;
 
@@ -29,8 +29,7 @@ public abstract class MyConnectionHandler {
         con = null;
 
         try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/digg",
-                    "tester", "tester");
+            con = DriverManager.getConnection(jdbcUrl, user, pass);
         } catch (SQLException se) {
             System.err.println(se.getMessage());
             se.printStackTrace();
