@@ -13,8 +13,27 @@ import java.sql.SQLException;
  * @author fork
  */
 public abstract class MyConnectionHandler {
+    static String jdbcUrl;
+    static String user;
+    static String pass;
 
-    public static Connection connect(String jdbcUrl, String user, String pass) {
+
+    public static void start (String host, String port, String dbname, String user, String pass)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("jdbc:postgresql://");
+        sb.append(host);
+        sb.append(':');
+        sb.append(port);
+        sb.append('/');
+        sb.append(dbname);
+        
+        MyConnectionHandler.jdbcUrl=sb.toString();
+        MyConnectionHandler.user = user;
+        MyConnectionHandler.pass=pass;
+    }
+
+    public static Connection connect() {
 
         Connection con;
 

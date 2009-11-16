@@ -4,8 +4,8 @@
  */
 package eabddigg;
 
+import connectionhandler.MyConnectionHandler;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import eabddigg.dados.*;
@@ -23,22 +23,11 @@ public class Filler {
     static PreparedStatement insertVotos;
     static PreparedStatement insertSeguidores;
 
-    static public void connect() {
+    static public void prepare() {
         //Checking if Driver is registered with DriverManager
 
         try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException cnfe) {
-            System.err.println("Couldn't find the driver!");
-            cnfe.printStackTrace();
-            System.exit(1);
-        }
 
-        con = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/digg",
-                    "tester", "tester");
             insertUtilizadores = con.prepareStatement("insert into utilizador (nick,nome,password)" +
                     "values (?,?,?);");
 
@@ -59,13 +48,6 @@ public class Filler {
 
     }
 
-    static void disconnect() {
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     static void insertUser(User user) {
 
@@ -115,31 +97,28 @@ public class Filler {
         }
     }
 
-    public static void main(String[] args)
-    {
-        Sistema s = new Sistema();
-        Filler.fillBD(s);
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void fillBD(Sistema sys) {
+    public static void fillBD() {
+        System.out.println("Generating dummy data...");
+        Sistema sys = new Sistema();
         sys.makeSistema();
-
+        
         // Connect to the DB
-        connect();
+        con = MyConnectionHandler.connect();
+        prepare();
         //Let's insert the users...
+        System.out.println("Inserting users...");
         for (User u : sys.getUsers()) {
             insertUser(u);
         }
 
         // Let's insert the news...
+        System.out.println("Inserting news...");
         for (NItem ni : sys.getNews()) {
             insertNItem(ni);
         }
 
         // Let's insert the votes
+        System.out.println("Inserting votes...");
         for (String slug : sys.getVotes().keySet()) {
             for (String nick : sys.getVotes().get(slug)) {
                 insertVote(slug, nick);
@@ -147,12 +126,14 @@ public class Filler {
         }
 
         // Let's insert the followers
+        System.out.println("Inserting followers...");
         for (String seguido : sys.getLikes().keySet()) {
             for (String seguidor : sys.getLikes().get(seguido)) {
                 insertFollow(seguidor, seguido);
             }
         }
-        disconnect();
+
+        MyConnectionHandler.disconnect(con);
 
 
     }

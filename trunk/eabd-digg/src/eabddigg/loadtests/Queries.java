@@ -22,13 +22,10 @@ public class Queries
 
     static Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
-    public Queries(String jdbcUrl, String user, String pass){
-        con = MyConnectionHandler.connect(jdbcUrl, user, pass);
+    public Queries(){
+        con = MyConnectionHandler.connect();
     }
 
-    public Queries(Connection con){
-        this.con=con;
-    }
 
     public String selectRandomUser(){
         StringBuilder sql = new StringBuilder();
