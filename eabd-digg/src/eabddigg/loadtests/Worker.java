@@ -20,21 +20,16 @@ public class Worker extends Thread {
     int counter;
     int index;
 
-    private String jdbcUrl, user, pass;
-
-    public Worker(int i, String jdbcUrl, String user, String pass){
+    public Worker(int i){
         this.index=i;
         this.counter=100;
-        this.jdbcUrl = jdbcUrl;
-        this.user = user;
-        this.pass = pass;
     }
 
     @Override
     public void run() {
 
         //Connection con = MyConnectionHandler.connect();
-        Queries queries = new Queries(jdbcUrl, user, pass);
+        Queries queries = new Queries();
 
         Random r = new Random();
         ArrayList<String> lines = new ArrayList<String>(counter);
@@ -118,7 +113,7 @@ public class Worker extends Thread {
 
             lines.add(query_type + '\t' + start + '\t' + end + '\t' + latency);
 
-            System.out.println("Done executing "+ (i+1) +" queries");
+            System.out.println(index +") Done executing "+ (i+1) +" queries");
             i++;
         }
 

@@ -14,15 +14,17 @@ import java.util.ArrayList;
  */
 public class LoadTester {
 
-    public static void main(String[] args){
+    public static void go(){
         int numThreads = 50;
+
+        //0-host 1-port 2- dbname 3-user 4-pass
 
         ArrayList<Thread> threads = new ArrayList<Thread>(numThreads);
 
         int i = 0;
 
         while(i < numThreads){
-            Worker w = new Worker(i,args[0],args[1],args[2]);
+            Worker w = new Worker(i);
             w.start();
             threads.add(w);
             i++;

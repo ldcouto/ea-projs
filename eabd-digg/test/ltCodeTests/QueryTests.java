@@ -11,9 +11,9 @@ import eabddigg.loadtests.Queries;
  *
  * @author lc
  */
+/*
 public class QueryTests
 {
-
     public static void main(String[] args)
     {
         long ti, tf;
@@ -22,7 +22,7 @@ public class QueryTests
         testTopTenNews();
         tf = System.currentTimeMillis();
         System.out.println("TopTenNews completed in " + (tf - ti) + " ms.");
-        /*        System.out.println("Testing TopTenFollowers...");
+        System.out.println("Testing TopTenFollowers...");
         ti = System.currentTimeMillis();
         testTopTenFollowers();
         tf = System.currentTimeMillis();
@@ -47,7 +47,7 @@ public class QueryTests
         testInsNews();
         tf = System.currentTimeMillis();
         System.out.println("InsertNews completed in " + (tf - ti) + " ms.");
- */   }
+    }
 
     // Aux Functions
     static public String removeSpecialCharacters(String orig)
@@ -86,7 +86,7 @@ public class QueryTests
     // Invoker Methods
     private static void testRecNews()
     {
-        Queries myQ = new Queries();
+        Queries myQ = new Queries("jdbclocalhost", "5432", "");
         String dude = removeSpecialCharacters(myQ.selectRandomUser());
         myQ.recNews(dude);
     }
@@ -122,3 +122,4 @@ public class QueryTests
         myQ.topTenNews();
     }
 }
+*/
