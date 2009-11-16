@@ -7,7 +7,6 @@ package eabddigg.loadtests;
 
 import connectionhandler.MyConnectionHandler;
 import filehandler.MyFileHandler;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,17 +20,21 @@ public class Worker extends Thread {
     int counter;
     int index;
 
-    public Worker(int i){
+    private String jdbcUrl, user, pass;
+
+    public Worker(int i, String jdbcUrl, String user, String pass){
         this.index=i;
         this.counter=100;
+        this.jdbcUrl = jdbcUrl;
+        this.user = user;
+        this.pass = pass;
     }
 
     @Override
     public void run() {
 
-
-        Connection con = MyConnectionHandler.connect();
-        Queries queries = new Queries(con);
+        //Connection con = MyConnectionHandler.connect();
+        Queries queries = new Queries(jdbcUrl, user, pass);
 
         Random r = new Random();
         ArrayList<String> lines = new ArrayList<String>(counter);
@@ -126,6 +129,6 @@ public class Worker extends Thread {
         lines.add("Mean queries per minute: "+ mean_query_per_minute);
 
         MyFileHandler.writeManyLines(filname, lines);
-        MyConnectionHandler.disconnect(con);
+        MyConnectionHandler.disconnect(Queries.con);
     }
 }

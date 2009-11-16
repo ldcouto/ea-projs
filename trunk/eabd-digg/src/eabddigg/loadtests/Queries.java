@@ -20,10 +20,10 @@ import java.util.Random;
 public class Queries
 {
 
-    Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
+    static Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
-    public Queries(){
-        con = MyConnectionHandler.connect();
+    public Queries(String jdbcUrl, String user, String pass){
+        con = MyConnectionHandler.connect(jdbcUrl, user, pass);
     }
 
     public Queries(Connection con){
