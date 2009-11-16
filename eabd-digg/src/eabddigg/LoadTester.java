@@ -22,7 +22,7 @@ public class LoadTester {
         int i = 0;
 
         while(i < numThreads){
-            Worker w = new Worker(i);
+            Worker w = new Worker(i,args[0],args[1],args[2]);
             w.start();
             threads.add(w);
             i++;
