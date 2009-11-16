@@ -23,7 +23,7 @@ public class Filler {
     static PreparedStatement insertVotos;
     static PreparedStatement insertSeguidores;
 
-    static public void prepare() {
+    static void prepare() {
         //Checking if Driver is registered with DriverManager
 
         try {
