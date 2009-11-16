@@ -66,7 +66,7 @@ public class Worker extends Thread {
                     break;
                 case 4 :
                     queries.allFollowersOf(randomNick);
-                    query_type = "FOLlFROM";
+                    query_type = "FOLLFROM";
                     break;
                 case 5 :
                     queries.allPostsLikedBy(randomNick);
