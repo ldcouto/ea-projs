@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
+import zipFGenerator.ZipfGenerator;
 
 /**
  *
@@ -29,15 +30,16 @@ public class Queries
 
     public String selectRandomUser(){
         StringBuilder sql = new StringBuilder();
-        Random r = new Random();
+        //Random r = new Random();
+        ZipfGenerator zip800 = new ZipfGenerator(800, 1);
         ResultSet res;
         String nick = new String();
 
         sql.append("SELECT nick ");
         sql.append("FROM utilizador ");
-        sql.append("LIMIT 1 OFFSET " + r.nextInt(800));
+        sql.append("LIMIT 1 OFFSET " + zip800.next()/*r.nextInt(800)*/);
         sql.append(";");
-        String killme = sql.toString();
+        //String killme = sql.toString();
         try {
             Statement st = con.createStatement();
             res = st.executeQuery(sql.toString());
@@ -58,14 +60,15 @@ public class Queries
 
     public  String selectRandomNews(){
         StringBuilder sql = new StringBuilder();
-        Random r = new Random();
+        //Random r = new Random();
+        ZipfGenerator zip8000 = new ZipfGenerator(8000, 1);
         ResultSet res;
 
         String slug = new String();
 
         sql.append("SELECT slug ");
         sql.append("FROM noticia ");
-        sql.append("LIMIT 1 OFFSET " + r.nextInt(8000));
+        sql.append("LIMIT 1 OFFSET " +  zip8000.next()/*r.nextInt(8000)*/);
         sql.append(";");
         try {
             Statement st = con.createStatement();
@@ -241,15 +244,18 @@ public class Queries
 
     public  void insertNews(String userNick){
         Random rand = new Random();
+        ZipfGenerator zip3000 = new ZipfGenerator(3000, 1);
+        ZipfGenerator zip11 = new ZipfGenerator(11, 1);
+        ZipfGenerator zip27 = new ZipfGenerator(27, 1);
         String titulo="'intitle"+rand.nextInt()+"'";
         String url="'inurl"+rand.nextInt()+"'";
         String slug="'irslug"+rand.nextInt()+"'";
         StringBuilder sb = new StringBuilder();
-        sb.append("'"+(rand.nextInt(3000)+1970));
+        sb.append("'"+(zip3000.next()/*rand.nextInt(3000)*/+1970));
         sb.append('-');
-        sb.append((rand.nextInt(11)+1));
+        sb.append((zip11.next()/*rand.nextInt(11)*/+1));
         sb.append('-');
-        sb.append((rand.nextInt(27)+1)+"'");
+        sb.append((zip27.next()/*rand.nextInt(27)*/+1)+"'");
         String data=sb.toString();
 
         StringBuilder sql = new StringBuilder();

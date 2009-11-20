@@ -9,6 +9,7 @@ import connectionhandler.MyConnectionHandler;
 import filehandler.MyFileHandler;
 import java.util.ArrayList;
 import java.util.Random;
+import zipFGenerator.ZipfGenerator;
 
 /**
  *
@@ -31,7 +32,8 @@ public class Worker extends Thread {
         //Connection con = MyConnectionHandler.connect();
         Queries queries = new Queries();
 
-        Random r = new Random();
+        //Random r = new Random();
+        ZipfGenerator zip20 = new ZipfGenerator(20, 1);
         ArrayList<String> lines = new ArrayList<String>(counter);
 
         long start, end, latency;
@@ -46,7 +48,8 @@ public class Worker extends Thread {
 
         int i = 0;
         while (i < counter){
-            int action = r.nextInt(20);
+            //int action = r.nextInt(20);
+            int action = zip20.next();
             
             String randomNick = queries.selectRandomUser();
             String randomSlug = queries.selectRandomUser();
