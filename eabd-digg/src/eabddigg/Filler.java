@@ -8,7 +8,7 @@ import connectionhandler.MyConnectionHandler;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import eabddigg.dados.*;
+import eabddigg.filldb.*;
 import java.sql.PreparedStatement;
 
 /**

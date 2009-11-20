@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package eabddigg.dados;
+package eabddigg.filldb;
 
 import java.sql.Date;
 

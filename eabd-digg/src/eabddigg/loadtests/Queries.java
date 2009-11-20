@@ -5,9 +5,7 @@
 package eabddigg.loadtests;
 
 import connectionhandler.MyConnectionHandler;
-import stringhandler.MyStrings;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,7 +51,7 @@ public class Queries
             ex.printStackTrace();
         }
         finally {
-            nick = MyStrings.removeSpecialCharacters(nick);
+            nick = this.removeSpecialCharacters(nick);
             return nick;
         }
     }
@@ -83,13 +81,19 @@ public class Queries
             ex.printStackTrace();
         }
         finally {
-            slug = MyStrings.removeSpecialCharacters(slug);
+            slug = this.removeSpecialCharacters(slug);
             return slug;
         }
     }
 
     public  void topTenNews(){
         StringBuilder sql = new StringBuilder();
+
+        // PASSAR PARA VERSÃO ANINHADA!
+        /* select slug, nums from
+         * (SELECT slug,COUNT(slug) as nums FROM voto GROUP BY slug) inside
+         * order by nums desc limit 10;
+         */
 
         sql.append("SELECT slug,COUNT(slug) ");
         sql.append("FROM voto ");
@@ -287,5 +291,39 @@ public class Queries
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+
+    private String removeSpecialCharacters(String orig)
+    {
+        String rv;
+
+        // replacing with space allows the camelcase to work a little better in most cases.
+        rv = orig.replace("\\", " ");
+        rv = rv.replace("(", " ");
+        rv = rv.replace(")", " ");
+        rv = rv.replace("/", " ");
+        rv = rv.replace("-", " ");
+        rv = rv.replace(",", " ");
+        rv = rv.replace(">", " ");
+        rv = rv.replace("<", " ");
+        rv = rv.replace("-", " ");
+        rv = rv.replace("&", " ");
+
+        // single quotes shouldn't result in CamelCase variables like Patient's -> PatientS
+        // "smart" forward quote
+        rv = rv.replace("'", "");
+
+        // if you have to find any more weird unicode chars, look here:
+        // http://seth.positivism.org/man.cgi/7/groff_char
+        rv = rv.replace("\u2019", ""); // smart forward (possessive) quote.
+
+        // make sure to get rid of double spaces.
+        rv = rv.replace("   ", " ");
+        rv = rv.replace("  ", " ");
+
+        rv = rv.trim();// Remove leading and trailing spaces.
+
+        return (rv);
     }
 }
