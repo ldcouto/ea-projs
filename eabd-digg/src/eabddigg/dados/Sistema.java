@@ -8,7 +8,7 @@ package eabddigg.dados;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-import java.util.Random;
+//import java.util.Random;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import zipFGenerator.ZipfGenerator;
 
 /**
  *
@@ -86,7 +87,9 @@ public class Sistema {
     }
 
     private void makeNews(){
-        Random r = new Random();
+        //Random r = new Random();
+        ZipfGenerator zip10 = new ZipfGenerator(10, 1);
+        ZipfGenerator zipLong = new ZipfGenerator(10000000, 1);
         String slug="", title="", nick="", url="";
 
             FileReader fin = null;
@@ -101,7 +104,7 @@ public class Sistema {
         // Let's add the no-lifers first
         for (int i=0; i<300;i++){
             nick = this.getRandomUsername();
-            for (int j=0; j<50+r.nextInt(10);j++){
+            for (int j=0; j<50+zip10.next()/*r.nextInt(10)*/;j++){
                 if (src.hasNext())
                     slug=src.next();
                 if (src.hasNext())
@@ -109,7 +112,7 @@ public class Sistema {
                 if (src.hasNext())
                     url=src.next();
                 //180000000000
-                long aux = 0 + r.nextInt(10000000);
+                long aux = 0 + zipLong.next()/*r.nextInt(10000000)*/;
                 this.makeNewsItem(nick, slug, title, url, new Date(aux));
            }
         }
@@ -117,14 +120,14 @@ public class Sistema {
         // Now let's add the quiet guys
         for (User u : this.users){
             nick = u.nick;
-            for (int j=0; j<1+r.nextInt(10);j++){
+            for (int j=0; j<1+zip10.next()/*r.nextInt(10)*/;j++){
                 if (src.hasNext())
                     slug=src.next();
                 if (src.hasNext())
                     title=src.next();
                 if (src.hasNext())
                     url=src.next();
-               long aux = 0 + r.nextInt(10000000);
+               long aux = 0 + zipLong.next()/*r.nextInt(10000000)*/;
                this.makeNewsItem(nick, slug, title, url, new Date(aux));
            }
         }
@@ -133,17 +136,20 @@ public class Sistema {
 
     private void makeLikers(){
         Random r = new Random();
+        ZipfGenerator zip10 = new ZipfGenerator(10, 1);
         for (User u : users) {
             ArrayList<String> gostadores = new ArrayList<String>();
-            for (int i=0;i<5+r.nextInt(10);i++)
+            for (int i=0;i<5+zip10.next()/*r.nextInt(10)*/;i++)
                 gostadores.add(this.getRandomUsername());
             likes.put(u.nick, gostadores);
         }
     }
 
     private String getRandomUsername(){
-        Random r = new Random();
-        return users.get(r.nextInt(userCount)).nick;
+        //§Random r = new Random();
+        ZipfGenerator zip = new ZipfGenerator(userCount, 1);
+
+        return users.get(zip.next()).nick;
     }
 
     private void makeNewsItem(String nick, String slug, String title, String url, Date date) {
@@ -151,9 +157,10 @@ public class Sistema {
 
         // Let's get some fans
         Random rand = new Random();
+        ZipfGenerator zip90 = new ZipfGenerator(90, 1);
         ArrayList<String> aux = new ArrayList<String>();
 
-        for(int i=0;i<(10+rand.nextInt(90));i++)
+        for(int i=0;i<(10+zip90.next()/*rand.nextInt(90)*/);i++)
             aux.add(this.getRandomUsername());
 
         votes.put(slug, aux);
