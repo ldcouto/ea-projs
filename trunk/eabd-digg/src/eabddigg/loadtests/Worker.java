@@ -8,8 +8,7 @@ package eabddigg.loadtests;
 import connectionhandler.MyConnectionHandler;
 import filehandler.MyFileHandler;
 import java.util.ArrayList;
-import java.util.Random;
-import zipFGenerator.ZipfGenerator;
+import zipFGenerator.ZipfGenAdpted;
 
 /**
  *
@@ -20,6 +19,7 @@ public class Worker extends Thread {
 
     int counter;
     int index;
+
 
     public Worker(int i){
         this.index=i;
@@ -33,7 +33,8 @@ public class Worker extends Thread {
         Queries queries = new Queries();
 
         //Random r = new Random();
-        ZipfGenerator zip20 = new ZipfGenerator(20, 1);
+//        ZipfGenerator zip20 = new ZipfGenerator(20, 1);
+        ZipfGenAdpted zipfr= new ZipfGenAdpted();
         ArrayList<String> lines = new ArrayList<String>(counter);
 
         long start, end, latency;
@@ -49,7 +50,7 @@ public class Worker extends Thread {
         int i = 0;
         while (i < counter){
             //int action = r.nextInt(20);
-            int action = zip20.next();
+            int action = zipfr.zipf(10);
             
             String randomNick = queries.selectRandomUser();
             String randomSlug = queries.selectRandomUser();
@@ -58,55 +59,45 @@ public class Worker extends Thread {
 
             switch (action) {
                 case 0 :
-                case 1 :
                     queries.topTenNews();
                     query_type = "TOP10NEWS";
                     break;
-                case 2:
-                case 3:
+                case 1:
                     queries.topTenFollowers();
                     query_type = "TOP10FOLL";
                     break;
-                case 4 :
-                    queries.allFollowersOf(randomNick);
-                    query_type = "FOLLFROM";
-                    break;
-                case 5 :
-                    queries.allPostsLikedBy(randomNick);
-                    query_type = "VOTESFROM";
-                    break;
-                case 6 :
-                    queries.allPostsMadeBy(randomNick);
-                    query_type = "NEWSFROM";
-                    break;
-                case 7 :
-                case 8 :
-                    queries.insertVoto(randomSlug, randomNick);
-                    query_type = "NEWVOTE";
-                    break;
-                case 9 :
-                case 10:
+                case 2 :
                     queries.loginUser(randomNick);
                     query_type = "LOGIN";
                     break;
-                case 11:
-                    queries.insertNews(randomNick);
-                    query_type = "NEWPOST";
-                    break;
-                case 12:
-                case 13:
-                case 14:
-                case 15:
+                case 3:
                     queries.recNews(randomNick);
                     query_type = "RECNEWS";
                     break;
-                case 16:
-                case 17:
-                case 18:
-                case 19:
+                case 4:
                     queries.recUsers(randomNick);
                          query_type = "RECUSERS";
                          break;
+                case 5 :
+                    queries.allPostsMadeBy(randomNick);
+                    query_type = "NEWSFROM";
+                    break;
+                case 6 :
+                    queries.allPostsLikedBy(randomNick);
+                    query_type = "VOTESFROM";
+                    break;
+                case 7 :
+                    queries.allFollowersOf(randomNick);
+                    query_type = "FOLLFROM";
+                    break;
+                case 8:
+                    queries.insertNews(randomNick);
+                    query_type = "NEWPOST";
+                    break;
+                case 9:
+                    queries.insertVoto(randomSlug, randomNick);
+                    query_type = "NEWVOTE";
+                    break;
             }
 
             end = System.currentTimeMillis();
