@@ -116,6 +116,7 @@ public class Worker extends Thread {
         lines.add("Mean queries per minute: "+ mean_query_per_minute);
 
         MyFileHandler.writeManyLines(filname, lines);
-        MyConnectionHandler.disconnect(Queries.con);
+
+        MyConnectionHandler.disconnect(queries.con);
     }
 }

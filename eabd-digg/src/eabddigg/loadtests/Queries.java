@@ -18,7 +18,7 @@ import java.util.Random;
 public class Queries
 {
 
-    static Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
+    Connection con; // TODO: remover isto, apenas aqui para não aponder este tipo de erros
 
     public Queries(){
         con = MyConnectionHandler.connect();
