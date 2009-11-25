@@ -5,6 +5,7 @@
 
 package eabddigg;
 
+import connectionhandler.MyConnectionHandler;
 import eabddigg.loadtests.Worker;
 import java.util.ArrayList;
 
@@ -42,7 +43,6 @@ public class LoadTester {
             }
             i++;
         }
-
         System.out.println("Done running "+numThreads+ " workers.");
     }
 }

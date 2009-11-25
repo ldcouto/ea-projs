@@ -44,19 +44,20 @@ public abstract class MyFileHandler {
      */
     public void writeLine(String filename, String line) {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filename,true));
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename,false));
             out.write(line);
             out.close();
         } catch (IOException e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
+
         }
     }
 
     public static void writeManyLines(String filename, List<String> lines)
     {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filename,true));
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename,false));
             for (String line : lines) {
                 out.write(line);
                 out.newLine();
