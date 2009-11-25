@@ -29,11 +29,9 @@ public class Worker extends Thread {
     @Override
     public void run() {
 
-        //Connection con = MyConnectionHandler.connect();
         Queries queries = new Queries();
 
         //Random r = new Random();
-//        ZipfGenerator zip20 = new ZipfGenerator(20, 1);
         ZipfGenAdpted zipfr= new ZipfGenAdpted();
         ArrayList<String> lines = new ArrayList<String>(counter);
 
