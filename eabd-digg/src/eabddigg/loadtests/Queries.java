@@ -89,19 +89,20 @@ public class Queries
     public  void topTenNews(){
         StringBuilder sql = new StringBuilder();
 
-        // PASSAR PARA VERSÃO ANINHADA!
-        /* select slug, nums from
-         * (SELECT slug,COUNT(slug) as nums FROM voto GROUP BY slug) inside
-         * order by nums desc limit 10;
-         */
-
+         /*// Versão Inicial
         sql.append("SELECT slug,COUNT(slug) ");
         sql.append("FROM voto ");
         sql.append("GROUP BY slug ");
         sql.append("ORDER BY count(slug) DESC ");
         sql.append("LIMIT 10;");
+        */
 
- //      String killme = sql.toString();
+        // Versão Melhorada:
+        sql.append("SELECT slug, nums FROM ");
+        sql.append("(SELECT slug, COUNT(slug) AS nums FROM voto GROUP by slug) inside ");
+        sql.append("ORDER BY nums DESC LIMIT 10;");
+
+             String killme = sql.toString();
 
         try {
             Statement st = con.createStatement();

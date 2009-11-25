@@ -11,11 +11,13 @@ import eabddigg.loadtests.Queries;
  *
  * @author lc
  */
-/*
+
 public class QueryTests
 {
     public static void main(String[] args)
+    
     {
+        MyConnectionHandler.start("localhost", "5432", "digg", "tester", "tester");
         long ti, tf;
         System.out.println("Testing TopTenNews...");
         ti = System.currentTimeMillis();
@@ -86,7 +88,7 @@ public class QueryTests
     // Invoker Methods
     private static void testRecNews()
     {
-        Queries myQ = new Queries("jdbclocalhost", "5432", "");
+        Queries myQ = new Queries();
         String dude = removeSpecialCharacters(myQ.selectRandomUser());
         myQ.recNews(dude);
     }
@@ -122,4 +124,3 @@ public class QueryTests
         myQ.topTenNews();
     }
 }
-*/
