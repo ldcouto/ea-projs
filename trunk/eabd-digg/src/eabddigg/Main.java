@@ -16,7 +16,6 @@ public class Main {
 
 
     public static void main(String[] args){
-     //   String[] args = {"localhost","5432","digg","tester","tester"};
         if (args[0].compareTo("GUI") == 0)
                 GUI.main(args);
         else {

@@ -18,8 +18,6 @@ public class LoadTester {
     public static void go(){
         int numThreads = 50;
 
-        //0-host 1-port 2- dbname 3-user 4-pass
-
         ArrayList<Thread> threads = new ArrayList<Thread>(numThreads);
 
         int i = 0;

@@ -9,9 +9,9 @@ import java.util.*;
 
 /**
  * provides power law selection.
- * Further modifications by ldcouto
  * Modified by Weishuai Yang
  * this file is based on T J Finney's Manuscripts Simulation Tool, 2001
+ * Further modifications by ldcouto
  */
 public class ZipfGenAdpted {
 
