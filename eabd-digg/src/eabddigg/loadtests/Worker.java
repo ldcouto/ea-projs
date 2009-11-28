@@ -31,7 +31,6 @@ public class Worker extends Thread {
 
         Queries queries = new Queries();
 
-        //Random r = new Random();
         ZipfGenAdpted zipfr= new ZipfGenAdpted();
         ArrayList<String> lines = new ArrayList<String>(counter);
 
@@ -47,7 +46,6 @@ public class Worker extends Thread {
 
         int i = 0;
         while (i < counter){
-            //int action = r.nextInt(20);
             int action = zipfr.zipf(10);
             
             String randomNick = queries.selectRandomUser();

@@ -97,7 +97,7 @@ public class Sistema {
             Scanner src = new Scanner(fin);
 
 
-        // Let's add the no-lifers first
+        // Let's add the big spammers first
         for (int i=0; i<300;i++){
             nick = this.getRandomUsername();
             for (int j=0; j<50+r.nextInt(10);j++){
@@ -107,7 +107,6 @@ public class Sistema {
                     title=src.next();
                 if (src.hasNext())
                     url=src.next();
-                //180000000000
                 long aux = 0 + r.nextInt(10000000);
                 this.makeNewsItem(nick, slug, title, url, new Date(aux));
            }
@@ -158,7 +157,6 @@ public class Sistema {
 
         votes.put(slug, aux);
         news.add(ni);
-//        System.out.println("Inseri a noticia "+ slug);
     }
      
 }

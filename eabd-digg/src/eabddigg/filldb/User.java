@@ -22,11 +22,7 @@ import java.util.logging.Logger;
 
 
 public class User {
-    /*
-     * nick       varchar(16)
-nome       varchar(100)
-password   varchar(16)
-*/
+
     String nick;
     String nome;
     String password;
@@ -88,7 +84,6 @@ password   varchar(16)
         try {
             fin = new FileReader("mats/inputs/uwords.txt");
             Scanner src = new Scanner(fin);
-            //String holder = "";
             User temporario = new User();
             int i =1200;
             while (src.hasNext() && i>0) {
