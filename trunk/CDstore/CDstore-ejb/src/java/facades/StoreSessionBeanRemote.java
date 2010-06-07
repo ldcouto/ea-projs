@@ -36,6 +36,8 @@ public interface StoreSessionBeanRemote
 
     public List<Artista> findAllArtistas();
 
+    public List<Artigo> findArtigosArtista(Artista a);
+
     public void removeArtista(Artista a);
 
     public void addArtigo(Artista artista, Artigo artigo);
