@@ -18,6 +18,12 @@ public class Vinil extends dal.Artigo implements Serializable {
 
     public Vinil() {
     }
+
+    public Vinil(String codigo, String nome, int stock)
+    {
+        super(codigo, nome, stock);
+    }
+
     private String rotacoes;
     private java.util.Set ORM_artista = new java.util.HashSet();
     private java.util.Set ORM_temasLadoA = new java.util.HashSet();
