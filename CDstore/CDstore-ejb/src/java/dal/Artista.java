@@ -21,9 +21,9 @@ public class Artista implements Serializable
 
     private String codigo;
     private String nome;
-    private Set<CD> ORM_cds = new HashSet<CD>();
-    private Set<DVD> ORM_dvds = new HashSet<DVD>();
-    private Set<Vinil> ORM_vinis = new HashSet<Vinil>();
+    private Set<CD> cds = new HashSet<CD>();
+    private Set<DVD> dvds = new HashSet<DVD>();
+    private Set<Vinil> vinis = new HashSet<Vinil>();
 
     public Artista()
     {
@@ -89,34 +89,34 @@ public class Artista implements Serializable
         return getCodigo();
     }
 
-    public void setORM_CDs(Set<CD> value)
+    public void setCDs(Set<CD> value)
     {
-        this.ORM_cds = value;
+        this.cds = value;
     }
 
-    public Set<CD> getORM_CDs()
+    public Set<CD> getCDs()
     {
-        return ORM_cds;
+        return cds;
     }
 
-    public void setORM_dVDs(Set<DVD> value)
+    public void setDVDs(Set<DVD> value)
     {
-        this.ORM_dvds = value;
+        this.dvds = value;
     }
 
-    public Set<DVD> getORM_dVDs()
+    public Set<DVD> getDVDs()
     {
-        return ORM_dvds;
+        return dvds;
     }
 
-    public void setORM_Vinis(Set<Vinil> value)
+    public void setVinis(Set<Vinil> value)
     {
-        this.ORM_vinis = value;
+        this.vinis = value;
     }
 
-    public Set<Vinil> getORM_Vinis()
+    public Set<Vinil> getVinis()
     {
-        return ORM_vinis;
+        return vinis;
     }
 
     public String toString()

@@ -10,6 +10,7 @@ import dal.CD;
 import dal.DVD;
 import dal.Tema;
 import dal.Vinil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -45,7 +46,6 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         Query q = em.createQuery("SELECT Artigo a FROM Artigo a");
         return q.getResultList();
     }
-
 
     public void removeArtigo(Artigo a)
     {
@@ -83,13 +83,28 @@ public class StoreSessionBean implements StoreSessionBeanRemote
 
     public Artista findArtista(String codigo)
     {
-        return em.find(Artista.class, em);
+        return em.find(Artista.class, codigo);
     }
 
     public List<Artista> findAllArtistas()
     {
         Query q = em.createQuery("SELECT Artista a FROM Artista a");
         return q.getResultList();
+    }
+
+    public List<Artigo> findArtigosArtista(Artista a)
+    {
+        a = findArtista(a.getCodigo());
+        List<Artigo> listaArtigos = new ArrayList<Artigo>();
+
+        if (a != null)
+        {
+            listaArtigos.addAll(a.getCDs());
+            listaArtigos.addAll(a.getDVDs());
+            listaArtigos.addAll(a.getVinis());
+        }
+
+        return listaArtigos;
     }
 
     public void removeArtista(Artista a)
@@ -106,17 +121,17 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         {
             if (artigo instanceof CD)
             {
-                Set<CD> cdSet = artista.getORM_CDs();
+                Set<CD> cdSet = artista.getCDs();
                 cdSet.add((CD) artigo);
             }
             else if (artigo instanceof DVD)
             {
-                Set<DVD> dvdSet = artista.getORM_dVDs();
+                Set<DVD> dvdSet = artista.getDVDs();
                 dvdSet.add((DVD) artigo);
             }
             else if (artigo instanceof Vinil)
             {
-                Set<Vinil> vinilSet = artista.getORM_Vinis();
+                Set<Vinil> vinilSet = artista.getVinis();
                 vinilSet.add((Vinil) artigo);
             }
 
@@ -133,17 +148,17 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         {
             if (artigo instanceof CD)
             {
-                Set<CD> cdSet = artista.getORM_CDs();
+                Set<CD> cdSet = artista.getCDs();
                 cdSet.remove((CD) artigo);
             }
             else if (artigo instanceof DVD)
             {
-                Set<DVD> dvdSet = artista.getORM_dVDs();
+                Set<DVD> dvdSet = artista.getDVDs();
                 dvdSet.remove((DVD) artigo);
             }
             else if (artigo instanceof Vinil)
             {
-                Set<Vinil> vinilSet = artista.getORM_Vinis();
+                Set<Vinil> vinilSet = artista.getVinis();
                 vinilSet.remove((Vinil) artigo);
             }
 
@@ -160,7 +175,7 @@ public class StoreSessionBean implements StoreSessionBeanRemote
 
     public Tema findTema(String codigo)
     {
-        return em.find(Tema.class, em);
+        return em.find(Tema.class, codigo);
     }
 
     public void removeTema(Tema t)
