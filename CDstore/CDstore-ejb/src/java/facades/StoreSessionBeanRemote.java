@@ -18,7 +18,7 @@ import javax.ejb.Remote;
 public interface StoreSessionBeanRemote
 {
 
-    public void createArtigo(String codigo, String nome, Integer stock);
+    public void createArtigo(Artigo a);
 
     public Artigo findArtigo(String codigo);
 
@@ -30,7 +30,7 @@ public interface StoreSessionBeanRemote
 
     public void increaseStock(Artigo a, Integer amount);
 
-    public void createArtista(String codigo, String nome);
+    public void createArtista(Artista a);
 
     public Artista findArtista(String codigo);
 
@@ -44,7 +44,7 @@ public interface StoreSessionBeanRemote
 
     public void remArtigo(Artista artista, Artigo artigo);
 
-    public void createTema(String codigo, String nome);
+    public void createTema(Tema t);
 
     public Tema findTema(String codigo);
 

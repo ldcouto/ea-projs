@@ -13,6 +13,8 @@ import dal.Vinil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,13 +28,13 @@ import javax.persistence.Query;
 public class StoreSessionBean implements StoreSessionBeanRemote
 {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Resource
+    protected SessionContext ctxSessionContext;
+    @PersistenceContext(unitName = "CDStore-ejbPU")
+    protected EntityManager em;
 
-    public void createArtigo(String codigo, String nome, Integer stock)
+    public void createArtigo(Artigo a)
     {
-        Artigo a = new Artigo(codigo, nome, stock);
-
         em.persist(a);
     }
 
@@ -74,10 +76,8 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         }
     }
 
-    public void createArtista(String codigo, String nome)
+    public void createArtista(Artista a)
     {
-        Artista a = new Artista(codigo, nome);
-
         em.persist(a);
     }
 
@@ -166,10 +166,8 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         }
     }
 
-    public void createTema(String codigo, String nome)
+    public void createTema(Tema t)
     {
-        Tema t = new Tema(codigo, nome);
-
         em.persist(t);
     }
 

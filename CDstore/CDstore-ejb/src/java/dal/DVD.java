@@ -18,6 +18,12 @@ public class DVD extends dal.Artigo implements Serializable {
 
     public DVD() {
     }
+
+    public DVD(String codigo, String nome, int stock)
+    {
+        super(codigo, nome, stock);
+    }
+
     private String local;
     private java.util.Set ORM_artista = new java.util.HashSet();
     private java.util.Set ORM_temas = new java.util.HashSet();

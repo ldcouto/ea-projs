@@ -10,7 +10,7 @@
  * Licensee: Tiago Veloso
  * License Type: Evaluation
  */
-package dal;
+package dal; 
 
 import java.io.Serializable;
 
@@ -18,6 +18,12 @@ public class CD extends dal.Artigo implements Serializable {
 
     public CD() {
     }
+
+    public CD(String codigo, String nome, int stock)
+    {
+        super(codigo, nome, stock);
+    }
+
     private String tipo;
     private java.util.Set ORM_autor = new java.util.HashSet();
     private java.util.Set ORM_temas = new java.util.HashSet();

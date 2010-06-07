@@ -14,7 +14,7 @@ License Type: Evaluation
 		<property name="stock" column="Stock" type="integer" not-null="true" lazy="false"/>
 		<union-subclass name="dal.CD" table="CD" lazy="false">
 			<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
-			<set name="ORM_Autor" table="Artista_CD4" lazy="true" cascade="save-update,lock" inverse="true">
+			<set name="ORM_Autor" table="Artista_CD" lazy="true" cascade="save-update,lock" inverse="true">
 				<key column="CDCodigo" not-null="true"/>
 				<many-to-many column="ArtistaCodigo" class="dal.Artista">
 				</many-to-many>
