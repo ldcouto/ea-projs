@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Tiago Veloso
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="dal.Artigos" table="Artigos" lazy="false">
+		<id name="codigo" column="Codigo" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="stock" column="Stock" type="integer" not-null="true" lazy="false"/>
+		<union-subclass name="dal.CD" table="CD" lazy="false">
+			<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
+			<set name="ORM_Autor" table="Artista_CD4" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="CDCodigo" not-null="true"/>
+				<many-to-many column="ArtistaCodigo" class="dal.Artista">
+				</many-to-many>
+			</set>
+			<set name="ORM_Temas" table="CD_Tema2" lazy="true" cascade="save-update,lock">
+				<key column="CDCodigo" not-null="true"/>
+				<many-to-many column="TemaCodigo" class="dal.Tema">
+				</many-to-many>
+			</set>
+		</union-subclass>
+		<union-subclass name="dal.DVD" table="DVD" lazy="false">
+			<property name="local" column="Local" type="string" length="255" not-null="false" lazy="false"/>
+			<set name="ORM_Artista" table="Artista_DVD" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="DVDCodigo" not-null="true"/>
+				<many-to-many column="ArtistaCodigo" class="dal.Artista">
+				</many-to-many>
+			</set>
+			<set name="ORM_Temas" table="DVD_Tema" lazy="true" cascade="save-update,lock">
+				<key column="DVDCodigo" not-null="true"/>
+				<many-to-many column="TemaCodigo" class="dal.Tema">
+				</many-to-many>
+			</set>
+		</union-subclass>
+		<union-subclass name="dal.Vinil" table="Vinil" lazy="false">
+			<property name="rotacoes" column="Rotacoes" type="string" length="255" not-null="false" lazy="false"/>
+			<set name="ORM_Artista" table="Artista_Vinil" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="VinilCodigo" not-null="true"/>
+				<many-to-many column="ArtistaCodigo" class="dal.Artista">
+				</many-to-many>
+			</set>
+			<set name="ORM_TemasLadoA" table="Vinil_Tema3" lazy="true" cascade="save-update,lock">
+				<key column="VinilCodigo" not-null="true"/>
+				<many-to-many column="TemaCodigo" class="dal.Tema">
+				</many-to-many>
+			</set>
+			<set name="ORM_TemasLadoB" table="Vinil_Tema4" lazy="true" cascade="save-update,lock">
+				<key column="VinilCodigo" not-null="true"/>
+				<many-to-many column="TemaCodigo" class="dal.Tema">
+				</many-to-many>
+			</set>
+		</union-subclass>
+	</class>
+</hibernate-mapping>

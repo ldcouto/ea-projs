@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Tiago Veloso
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="dal.Artista" table="Artista" lazy="false">
+		<id name="codigo" column="Codigo" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Artigos" table="Artista_CD4" lazy="true" cascade="save-update,lock">
+			<key column="ArtistaCodigo" not-null="true"/>
+			<many-to-many column="CDCodigo" class="dal.CD">
+			</many-to-many>
+		</set>
+		<set name="ORM_dVDs" table="Artista_DVD" lazy="true" cascade="save-update,lock">
+			<key column="ArtistaCodigo" not-null="true"/>
+			<many-to-many column="DVDCodigo" class="dal.DVD">
+			</many-to-many>
+		</set>
+		<set name="ORM_Vinis" table="Artista_Vinil" lazy="true" cascade="save-update,lock">
+			<key column="ArtistaCodigo" not-null="true"/>
+			<many-to-many column="VinilCodigo" class="dal.Vinil">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
