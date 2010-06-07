@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package facades;
-
+ 
 import dal.Artigo;
 import dal.Artista;
 import dal.CD;
