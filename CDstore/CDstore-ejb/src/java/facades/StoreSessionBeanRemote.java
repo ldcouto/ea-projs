@@ -8,13 +8,13 @@ import dal.Artigo;
 import dal.Artista;
 import dal.Tema;
 import java.util.List;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author jorge
  */
-@Local
+@Remote
 public interface StoreSessionBeanRemote
 {
 

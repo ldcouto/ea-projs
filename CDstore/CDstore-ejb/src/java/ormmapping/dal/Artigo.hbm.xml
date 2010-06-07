@@ -5,7 +5,7 @@ License Type: Evaluation
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="dal.Artigos" table="Artigos" lazy="false">
+	<class name="dal.Artigo" table="Artigo" lazy="false">
 		<id name="codigo" column="Codigo" type="string">
 			<generator class="assigned">
 			</generator>

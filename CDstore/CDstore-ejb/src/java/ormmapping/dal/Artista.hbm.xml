@@ -11,17 +11,17 @@ License Type: Evaluation
 			</generator>
 		</id>
 		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
-		<set name="ORM_Artigos" table="Artista_CD4" lazy="true" cascade="save-update,lock">
+		<set name="CDs" table="Artista_CD" lazy="true" cascade="save-update,lock">
 			<key column="ArtistaCodigo" not-null="true"/>
 			<many-to-many column="CDCodigo" class="dal.CD">
 			</many-to-many>
 		</set>
-		<set name="ORM_dVDs" table="Artista_DVD" lazy="true" cascade="save-update,lock">
+		<set name="DVDs" table="Artista_DVD" lazy="true" cascade="save-update,lock">
 			<key column="ArtistaCodigo" not-null="true"/>
 			<many-to-many column="DVDCodigo" class="dal.DVD">
 			</many-to-many>
 		</set>
-		<set name="ORM_Vinis" table="Artista_Vinil" lazy="true" cascade="save-update,lock">
+		<set name="Vinis" table="Artista_Vinil" lazy="true" cascade="save-update,lock">
 			<key column="ArtistaCodigo" not-null="true"/>
 			<many-to-many column="VinilCodigo" class="dal.Vinil">
 			</many-to-many>
