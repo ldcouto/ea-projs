@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Tiago Veloso
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="dal.Tema" table="Tema" lazy="false">
+		<id name="codigo" column="Codigo" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_cD" table="CD_Tema2" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="TemaCodigo" not-null="true"/>
+			<many-to-many column="CDCodigo" class="dal.CD">
+			</many-to-many>
+		</set>
+		<set name="ORM_dVD" table="DVD_Tema" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="TemaCodigo" not-null="true"/>
+			<many-to-many column="DVDCodigo" class="dal.DVD">
+			</many-to-many>
+		</set>
+		<set name="ORM_LadoA" table="Vinil_Tema3" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="TemaCodigo" not-null="true"/>
+			<many-to-many column="VinilCodigo" class="dal.Vinil">
+			</many-to-many>
+		</set>
+		<set name="ORM_LadoB" table="Vinil_Tema4" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="TemaCodigo" not-null="true"/>
+			<many-to-many column="VinilCodigo" class="dal.Vinil">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
