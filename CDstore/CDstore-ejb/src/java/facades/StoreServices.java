@@ -5,7 +5,6 @@
 package facades;
 
 import dal.Artigo;
-import dal.Artista;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -40,8 +39,20 @@ public class StoreServices
     @WebMethod(operationName = "listArtistas")
     public List listArtistas()
     {
-        List<Artista> list = ssb.findAllArtistas();
+        List<String> list = ssb.findAllArtistas();
 
         return list;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "procurarArtista")
+    public String procurarArtista(@WebParam(name = "nome")
+    String nome)
+    {
+        String a = ssb.findArtistaByName(nome);
+        
+        return a;
     }
 }
