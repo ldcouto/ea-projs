@@ -25,88 +25,78 @@ import javax.persistence.Query;
  * @author jorge
  */
 @Stateless()
-public class StoreSessionBean implements StoreSessionBeanRemote
-{
+public class StoreSessionBean implements StoreSessionBeanRemote {
 
     @Resource
     protected SessionContext ctxSessionContext;
-
     @PersistenceContext(unitName = "CDStore-ejbPU")
-    private EntityManager em ;
+    private EntityManager em;
 
-    public void createArtigo(Artigo a)
-    {
+    public void createArtigo(Artigo a) {
         em.persist(a);
     }
 
-    public Artigo findArtigo(String codigo)
-    {
+    public Artigo findArtigo(String codigo) {
         return em.find(Artigo.class, codigo);
     }
 
-    public List<Artigo> findAllArtigos()
-    {
+    public List<Artigo> findAllArtigos() {
         Query q = em.createQuery("SELECT a FROM Artigo a");
         return q.getResultList();
     }
 
-    public void removeArtigo(Artigo a)
-    {
+    public void removeArtigo(Artigo a) {
         em.remove(a);
     }
 
-    public void decreaseStock(Artigo a, Integer amount)
-    {
+    public void decreaseStock(Artigo a, Integer amount) {
         a = findArtigo(a.getCodigo());
 
-        if (a != null && a.getStock() > amount)
-        {
+        if (a != null && a.getStock() > amount) {
             a.setStock(a.getStock() - amount);
             em.merge(a);
         }
     }
 
-    public void increaseStock(Artigo a, Integer amount)
-    {
+    public void increaseStock(Artigo a, Integer amount) {
         a = findArtigo(a.getCodigo());
 
-        if (a != null)
-        {
+        if (a != null) {
             a.setStock(a.getStock() + amount);
             em.merge(a);
         }
     }
 
-    public void createArtista(Artista a)
-    {
+    public void createArtista(Artista a) {
         em.persist(a);
     }
 
-    public Artista findArtista(String codigo)
-    {
+    public Artista findArtista(String codigo) {
         return em.find(Artista.class, codigo);
     }
 
-    public List<String> findAllArtistas()
-    {
+    public List<Artista> findArtistByName(String name) {
+        Query q = em.createQuery("select a from Artista a where upper(a.nome) like upper(?1)");
+        q.setParameter(1, "%" + name + "%");
+        return q.getResultList();
+    }
+
+    public List<String> findAllArtistas() {
         Query q = em.createQuery("SELECT a.nome FROM Artista a");
         return q.getResultList();
     }
 
-    public String findArtistaByName(String name)
-    {
+    public String findArtistaByName(String name) {
         Query q = em.createQuery("SELECT a.codigo FROM Artista a WHERE a.nome like ?1");
         q.setParameter(1, name);
         return (String) q.getSingleResult();
     }
 
-    public List<Artigo> findArtigosArtista(Artista a)
-    {
+    public List<Artigo> findArtigosArtista(Artista a) {
         a = findArtista(a.getCodigo());
         List<Artigo> listaArtigos = new ArrayList<Artigo>();
 
-        if (a != null)
-        {
+        if (a != null) {
             listaArtigos.addAll(a.getCDs());
             listaArtigos.addAll(a.getDVDs());
             listaArtigos.addAll(a.getVinis());
@@ -115,30 +105,22 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         return listaArtigos;
     }
 
-    public void removeArtista(Artista a)
-    {
+    public void removeArtista(Artista a) {
         em.remove(a);
     }
 
-    public void addArtigo(Artista artista, Artigo artigo)
-    {
+    public void addArtigo(Artista artista, Artigo artigo) {
         artista = findArtista(artista.getCodigo());
         artigo = findArtigo(artigo.getCodigo());
 
-        if (artista != null && artigo != null)
-        {
-            if (artigo instanceof CD)
-            {
+        if (artista != null && artigo != null) {
+            if (artigo instanceof CD) {
                 Set<CD> cdSet = artista.getCDs();
                 cdSet.add((CD) artigo);
-            }
-            else if (artigo instanceof DVD)
-            {
+            } else if (artigo instanceof DVD) {
                 Set<DVD> dvdSet = artista.getDVDs();
                 dvdSet.add((DVD) artigo);
-            }
-            else if (artigo instanceof Vinil)
-            {
+            } else if (artigo instanceof Vinil) {
                 Set<Vinil> vinilSet = artista.getVinis();
                 vinilSet.add((Vinil) artigo);
             }
@@ -147,25 +129,18 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         }
     }
 
-    public void remArtigo(Artista artista, Artigo artigo)
-    {
+    public void remArtigo(Artista artista, Artigo artigo) {
         artista = findArtista(artista.getCodigo());
         artigo = findArtigo(artigo.getCodigo());
 
-        if (artista != null && artigo != null)
-        {
-            if (artigo instanceof CD)
-            {
+        if (artista != null && artigo != null) {
+            if (artigo instanceof CD) {
                 Set<CD> cdSet = artista.getCDs();
                 cdSet.remove((CD) artigo);
-            }
-            else if (artigo instanceof DVD)
-            {
+            } else if (artigo instanceof DVD) {
                 Set<DVD> dvdSet = artista.getDVDs();
                 dvdSet.remove((DVD) artigo);
-            }
-            else if (artigo instanceof Vinil)
-            {
+            } else if (artigo instanceof Vinil) {
                 Set<Vinil> vinilSet = artista.getVinis();
                 vinilSet.remove((Vinil) artigo);
             }
@@ -174,18 +149,15 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         }
     }
 
-    public void createTema(Tema t)
-    {
+    public void createTema(Tema t) {
         em.persist(t);
     }
 
-    public Tema findTema(String codigo)
-    {
+    public Tema findTema(String codigo) {
         return em.find(Tema.class, codigo);
     }
 
-    public void removeTema(Tema t)
-    {
+    public void removeTema(Tema t) {
         em.remove(t);
     }
 }
