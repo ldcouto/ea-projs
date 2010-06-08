@@ -34,7 +34,9 @@ public interface StoreSessionBeanRemote
 
     public Artista findArtista(String codigo);
 
-    public List<Artista> findAllArtistas();
+    public List<String> findAllArtistas();
+
+    public String findArtistaByName(String name);
 
     public List<Artigo> findArtigosArtista(Artista a);
 

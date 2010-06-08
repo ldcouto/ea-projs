@@ -46,7 +46,7 @@ public class StoreSessionBean implements StoreSessionBeanRemote
 
     public List<Artigo> findAllArtigos()
     {
-        Query q = em.createQuery("SELECT * FROM Artigo");
+        Query q = em.createQuery("SELECT a FROM Artigo a");
         return q.getResultList();
     }
 
@@ -87,10 +87,17 @@ public class StoreSessionBean implements StoreSessionBeanRemote
         return em.find(Artista.class, codigo);
     }
 
-    public List<Artista> findAllArtistas()
+    public List<String> findAllArtistas()
     {
-        Query q = em.createQuery("SELECT Artista a FROM Artista a");
+        Query q = em.createQuery("SELECT a.nome FROM Artista a");
         return q.getResultList();
+    }
+
+    public String findArtistaByName(String name)
+    {
+        Query q = em.createQuery("SELECT a.codigo FROM Artista a WHERE a.nome like ?1");
+        q.setParameter(1, name);
+        return (String) q.getSingleResult();
     }
 
     public List<Artigo> findArtigosArtista(Artista a)
