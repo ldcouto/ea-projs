@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package facades;
- 
+
 import dal.Artigo;
 import dal.Artista;
 import dal.CD;
@@ -30,8 +30,9 @@ public class StoreSessionBean implements StoreSessionBeanRemote
 
     @Resource
     protected SessionContext ctxSessionContext;
+
     @PersistenceContext(unitName = "CDStore-ejbPU")
-    protected EntityManager em;
+    private static EntityManager em ;
 
     public void createArtigo(Artigo a)
     {
