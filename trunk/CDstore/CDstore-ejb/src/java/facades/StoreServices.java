@@ -7,6 +7,7 @@ package facades;
 import dal.Artigo;
 import dal.Artista;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -20,8 +21,7 @@ import javax.ejb.Stateless;
 @Stateless()
 public class StoreServices
 {
-
-    StoreSessionBean ssb = new StoreSessionBean();
+    @EJB private StoreSessionBeanRemote ssb = new StoreSessionBean();
 
     /**
      * Web service operation

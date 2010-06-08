@@ -24,7 +24,7 @@ import javax.persistence.Query;
  *
  * @author jorge
  */
-@Stateless
+@Stateless()
 public class StoreSessionBean implements StoreSessionBeanRemote
 {
 
@@ -32,7 +32,7 @@ public class StoreSessionBean implements StoreSessionBeanRemote
     protected SessionContext ctxSessionContext;
 
     @PersistenceContext(unitName = "CDStore-ejbPU")
-    private static EntityManager em ;
+    private EntityManager em ;
 
     public void createArtigo(Artigo a)
     {
@@ -41,12 +41,12 @@ public class StoreSessionBean implements StoreSessionBeanRemote
 
     public Artigo findArtigo(String codigo)
     {
-        return em.find(Artigo.class, em);
+        return em.find(Artigo.class, codigo);
     }
 
     public List<Artigo> findAllArtigos()
     {
-        Query q = em.createQuery("SELECT Artigo a FROM Artigo a");
+        Query q = em.createQuery("SELECT * FROM Artigo");
         return q.getResultList();
     }
 
