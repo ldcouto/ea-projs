@@ -51,4 +51,6 @@ public interface StoreSessionBeanRemote
     public Tema findTema(String codigo);
 
     public void removeTema(Tema t);
+
+    List<Artista> findArtistByName(String name);
 }
