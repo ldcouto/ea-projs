@@ -16,7 +16,7 @@ import javax.ejb.Remote;
  * @author fork
  */
 @Remote
-public interface ShopingCartBeanRemote {
+public interface ShoppingCartBeanRemote {
 
     public void setUser(dal.StoreUser user);
 
@@ -26,7 +26,7 @@ public interface ShopingCartBeanRemote {
 
     public java.util.List getProducts();
 
-    ShopingCartBeanRemote createCart(StoreUser user) throws CreateException, RemoteException;
+    ShoppingCartBeanRemote createCart(StoreUser user) throws CreateException, RemoteException;
 
     void addItem(Artigo item);
 

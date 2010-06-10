@@ -9,77 +9,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-/**
+/**ƒ
  *
  * @author fork
  */
 @Entity
-public class StoreUser implements Serializable
+public class StoreGroup implements Serializable
 {
 
     private static final long serialVersionUID = 1L;
-
-    public StoreUser()
-    {
-    }
-
-    public StoreUser(String id, String password)
-    {
-        this.id = id;
-        this.password = password;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
+    private String groupName;
 
-    private String password;
-
-    @ManyToOne
-    private StoreGroup usergroup;
-
-    /**
-     * Get the value of group
-     *
-     * @return the value of group
-     */
-    public StoreGroup getUsergroup()
-    {
-        return usergroup;
-    }
-
-    /**
-     * Set the value of group
-     *
-     * @param group new value of group
-     */
-    public void setUsergroup(StoreGroup group)
-    {
-        this.usergroup = group;
-    }
-
-
-    public String getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(String id)
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public String getPassword()
+    public String getGroupName()
     {
-        return password;
+        return groupName;
     }
 
-    public void setPassword(String password)
+    public void setGroupName(String groupName)
     {
-        this.password = password;
+        this.groupName = groupName;
     }
 
     @Override
@@ -94,11 +56,11 @@ public class StoreUser implements Serializable
     public boolean equals(Object object)
     {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StoreUser))
+        if (!(object instanceof StoreGroup))
         {
             return false;
         }
-        StoreUser other = (StoreUser) object;
+        StoreGroup other = (StoreGroup) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
@@ -109,6 +71,6 @@ public class StoreUser implements Serializable
     @Override
     public String toString()
     {
-        return "dal.User[id=" + id + "]";
+        return "dal.ClientsGroup[id=" + id + "]";
     }
 }

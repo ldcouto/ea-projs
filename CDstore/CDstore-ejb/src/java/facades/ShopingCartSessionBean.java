@@ -9,6 +9,7 @@ import dal.StoreUser;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.CreateException;
 import javax.ejb.Stateful;
 
@@ -16,8 +17,8 @@ import javax.ejb.Stateful;
  *
  * @author fork
  */
-@Stateful
-public class ShopingCartSessionBean implements ShopingCartBeanRemote
+@Stateful()
+public class ShopingCartSessionBean implements ShoppingCartBeanRemote
 {
 
     // Add business logic below. (Right-click in editor and choose
@@ -25,49 +26,35 @@ public class ShopingCartSessionBean implements ShopingCartBeanRemote
     private List<Artigo> products = new ArrayList<Artigo>();
     private StoreUser user;
 
-    /**
-     * Get the value of products
-     *
-     * @return the value of products
-     */
+    @RolesAllowed(
+    {
+        "client"
+    })
     public List getProducts()
     {
         return products;
     }
 
-    /**
-     * Set the value of products
-     *
-     * @param products new value of products
-     */
     public void setProducts(List products)
     {
         this.products = products;
     }
 
-    /**
-     * Get the value of user
-     *
-     * @return the value of user
-     */
+    @RolesAllowed(
+    {
+        "client"
+    })
     public StoreUser getUser()
     {
         return user;
     }
 
-    /**
-     * Set the value of user
-     *
-     * @param user new value of user
-     */
     public void setUser(StoreUser user)
     {
         this.user = user;
     }
 
-
-
-    public ShopingCartBeanRemote createCart(StoreUser user) throws CreateException, RemoteException
+    public ShoppingCartBeanRemote createCart(StoreUser user) throws CreateException, RemoteException
     {
         ejbCreateCart(user);
         return new ShopingCartSessionBean();
@@ -78,11 +65,19 @@ public class ShopingCartSessionBean implements ShopingCartBeanRemote
         this.user = user;
     }
 
+    @RolesAllowed(
+    {
+        "client"
+    })
     public void addItem(Artigo item)
     {
         products.add(item);
     }
 
+    @RolesAllowed(
+    {
+        "client"
+    })
     public void removeItem(Artigo item)
     {
         products.remove(item);
