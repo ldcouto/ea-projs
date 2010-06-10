@@ -9,6 +9,8 @@
     <message name="checkStockResponse"/>
     <message name="listArtistas"/>
     <message name="listArtistasResponse"/>
+    <message name="procurarArtista"/>
+    <message name="procurarArtistaResponse"/>
     <portType name="CD-Store-WebServices">
         <operation name="checkStock">
             <input message="tns:checkStock"/>
@@ -17,6 +19,10 @@
         <operation name="listArtistas">
             <input message="tns:listArtistas"/>
             <output message="tns:listArtistasResponse"/>
+        </operation>
+        <operation name="procurarArtista">
+            <input message="tns:procurarArtista"/>
+            <output message="tns:procurarArtistaResponse"/>
         </operation>
     </portType>
     <binding name="CD-Store-WebServicesPortBinding" type="tns:CD-Store-WebServices">
@@ -28,10 +34,15 @@
             <input/>
             <output/>
         </operation>
+        <operation name="procurarArtista">
+            <input/>
+            <output/>
+        </operation>
     </binding>
     <service name="StoreServicesService">
         <port name="CD-Store-WebServicesPort" binding="tns:CD-Store-WebServicesPortBinding"/>
     </service>
 </definitions>
+
 
 
