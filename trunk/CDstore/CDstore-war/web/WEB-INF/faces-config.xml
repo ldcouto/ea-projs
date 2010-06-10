@@ -26,7 +26,15 @@
             <to-view-id>/artistResults.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/addItem.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>showCart</from-outcome>
+            <to-view-id>/cartContents.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
+
 
 
 

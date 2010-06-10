@@ -16,7 +16,7 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>List CDS</title>
+            <title>Add Item to shopping cart</title>
         </head>
         <body>
            <h:form id="artistForm">
