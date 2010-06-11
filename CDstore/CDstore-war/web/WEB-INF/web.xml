@@ -17,4 +17,24 @@
     <welcome-file-list>
         <welcome-file>faces/welcomeJSF.jsp</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>formloginwebresource</web-resource-name>
+            <description/>
+            <url-pattern>/faces/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>cdstore_users</realm-name>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>client</role-name>
+    </security-role>
 </web-app>

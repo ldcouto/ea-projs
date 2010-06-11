@@ -5,7 +5,10 @@ import facades.ShoppingCartBeanRemote;
 import facades.StoreSessionBeanRemote;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.faces.context.FacesContext;
 
 /*
@@ -16,24 +19,22 @@ import javax.faces.context.FacesContext;
  *
  * @author ldc
  */
+
 public class StoreBackingBean
 {
-
     String artistName;
     ArrayList<Artista> artistas;
     ArrayList<Artigo> artigos;
-
     String user;
     String pass;
-
     String itemCode;
-
     @EJB
     StoreSessionBeanRemote ssb;
     @EJB
     ShoppingCartBeanRemote scb;
 
-    public String getPass() {
+    public String getPass()
+    {
         return pass;
     }
 
@@ -44,31 +45,36 @@ public class StoreBackingBean
 
     }
 
-    public void setPass(String pass) {
+    public void setPass(String pass)
+    {
         this.pass = pass;
     }
 
-    public String getUser() {
+    public String getUser()
+    {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(String user)
+    {
         this.user = user;
     }
 
-    public ArrayList<Artigo> getArtigos() {
+    public ArrayList<Artigo> getArtigos()
+    {
         return artigos;
     }
 
-    public void setArtigos(ArrayList<Artigo> artigos) {
+    public void setArtigos(ArrayList<Artigo> artigos)
+    {
         this.artigos = artigos;
     }
 
-
-
-    public ArrayList<Artista> getArtistas() {
+    public ArrayList<Artista> getArtistas()
+    {
         return artistas;
     }
+
     public String getItemCode()
     {
         return itemCode;
@@ -94,8 +100,8 @@ public class StoreBackingBean
         this.artistName = artistName;
     }
 
-
-    public String showDetails(){
+    public String showDetails()
+    {
         FacesContext fc = FacesContext.getCurrentInstance();
         String param = fc.getExternalContext().getRequestParameterMap().get("nomeArtista");
 
