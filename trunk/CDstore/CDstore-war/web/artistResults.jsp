@@ -27,9 +27,15 @@
 			<h:outputText value="#{artistas.nome}" />
 		</h:column>
 		<h:column>
-			<f:facet name="header"><h:outputText value="Código" /></f:facet>
-			<h:outputText value="#{artistas.codigo}" />
-		</h:column>
+			<f:facet name="header"><h:outputText value="Artigos" /></f:facet>
+                        <h:form>
+                            <h:commandLink action="#{sBean.showDetails}">
+                                <h:outputText value="Ver" />
+                                <f:param name="nomeArtista" value = "#{artistas.codigo}" />
+                            </h:commandLink>
+                        </h:form>
+
+        </h:column>
 	</h:dataTable>
 
         </body>
