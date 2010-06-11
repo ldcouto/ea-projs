@@ -9,14 +9,17 @@ import dal.StoreUser;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.CreateException;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 /**
  *
  * @author fork
  */
+
 @Stateful()
 public class ShopingCartSessionBean implements ShoppingCartBeanRemote
 {

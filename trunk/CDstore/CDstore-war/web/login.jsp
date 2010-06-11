@@ -8,29 +8,26 @@
 
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <f:view>
     <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Login Page</title>
-        </head>
-        <body>
-            <h1><h:outputText value="Please Log In"/></h1>
-        <body>
-            <h:form id="artistForm">
-                <h:outputText value="Username:   "/>
-                <h:inputText id="name" value="#{sBean.user}"/>
-                <br/>
-                <h:outputText value ="Password:    "/>
-                <h:inputSecret id = "pass" value="#{sBean.pass}"/>
-                <br/>
-                <h:commandButton action="#{sBean.findArtists}" value="login" />
-            </h:form>
+        <head><title>Login Page</title></head>
 
-        </body>
+        <h2>Hello, please login:</h2>
+        <br><br><form action="j_security_check" method=post>
+            <p><strong>Please Enter Your User Name: </strong>
+                <input type="text" name="j_username" size="25">
+            <p><p><strong>Please Enter Your Password: </strong>
+                <input type="password" size="15" name="j_password">
+            <p><p>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+        </form>
+
     </html>
 </f:view>
