@@ -2,11 +2,11 @@
 import dal.Artigo;
 import dal.Artista;
 import facades.ShoppingCartBeanRemote;
-import facades.StoreSessionBean;
 import facades.StoreSessionBeanRemote;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,12 +21,21 @@ public class StoreBackingBean
 
     String artistName;
     ArrayList<Artista> artistas;
-    private String itemCode;
+    ArrayList<Artigo> artigos;
+
+    String user;
+    String pass;
+
+    String itemCode;
 
     @EJB
     StoreSessionBeanRemote ssb;
     @EJB
     ShoppingCartBeanRemote scb;
+
+    public String getPass() {
+        return pass;
+    }
 
     public StoreBackingBean()
     {
@@ -35,6 +44,31 @@ public class StoreBackingBean
 
     }
 
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public ArrayList<Artigo> getArtigos() {
+        return artigos;
+    }
+
+    public void setArtigos(ArrayList<Artigo> artigos) {
+        this.artigos = artigos;
+    }
+
+
+
+    public ArrayList<Artista> getArtistas() {
+        return artistas;
+    }
     public String getItemCode()
     {
         return itemCode;
@@ -43,11 +77,6 @@ public class StoreBackingBean
     public void setItemCode(String itemCode)
     {
         this.itemCode = itemCode;
-    }
-
-    public ArrayList<Artista> getArtistas()
-    {
-        return artistas;
     }
 
     public void setArtistas(ArrayList<Artista> artistas)
@@ -63,6 +92,19 @@ public class StoreBackingBean
     public void setArtistName(String artistName)
     {
         this.artistName = artistName;
+    }
+
+
+    public String showDetails(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String param = fc.getExternalContext().getRequestParameterMap().get("nomeArtista");
+
+        Artista a = ssb.findArtista(param);
+
+        artistName = a.getNome();
+        artigos = (ArrayList<Artigo>) ssb.findArtigosArtista(a);
+
+        return "discosArtista";
     }
 
     public String findArtists()
