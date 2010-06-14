@@ -31,14 +31,12 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header"><h:outputText value="Comprar" /></f:facet>
-                    <h:outputText value="Comprar"/>
-                   <%-- <h:form>
-                        <h:commandLink action="#{sBean.showDetails}">
-                            <h:outputText value="Ver discos" />
-                            <f:param name="nomeArtista" value = "#{artistas.codigo}" />
+                   <h:form>
+                        <h:commandLink action="#{sBean.addItemToCart}">
+                            <h:outputText value="Comprar" />
+                            <f:param name="codDisco" value = "#{artigo.codigo}" />
                         </h:commandLink>
                     </h:form>
---%>
                 </h:column>
             </h:dataTable>
         </body>
