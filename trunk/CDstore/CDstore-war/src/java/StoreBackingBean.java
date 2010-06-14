@@ -120,7 +120,7 @@ public class StoreBackingBean {
         FacesContext fc = FacesContext.getCurrentInstance();
         String param = fc.getExternalContext().getRequestParameterMap().get("codDisco");
 
-        Artigo a = null;
+        Artigo a = new Artigo();
 
         Iterator itr = scb.getProducts().iterator();
 
@@ -128,10 +128,10 @@ public class StoreBackingBean {
             Artigo ia = (Artigo) itr.next();
             if (ia.getCodigo().equals(param)) {
                 a = ia;
-                itr.remove();
+         //       itr.remove();
                 break;
-            }
-        }
+            }}
+        scb.removeItem(a);
         return "itemRemoved";
     }
 
