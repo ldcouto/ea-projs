@@ -16,7 +16,7 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>JSP Page</title>
+            <title>Shopping Cart</title>
         </head>
         <body>
             <h:dataTable id="ttid" value="#{sBean.cartContents}" var="items">
@@ -29,7 +29,7 @@
                     <h:outputText value="#{items.codigo}" />
                 </h:column>
                 <h:column>
-                   <f:facet name="header"><h:outputText value="Remover Artigo" /></f:facet>
+                    <f:facet name="header"><h:outputText value="Remover Artigo" /></f:facet>
 
                     <h:form>
                         <h:commandLink action="#{sBean.removeItem}">
@@ -39,6 +39,10 @@
                     </h:form>
                 </h:column>
             </h:dataTable>
+            <br/>
+            <br/>
+            <h2><h:outputLink value="listarts.jsp"><h:outputText value="Continue Shopping"/></h:outputLink></h2>
+
         </body>
     </html>
 </f:view>

@@ -16,7 +16,7 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Add Item to shopping cart</title>
+            <title>Search for an Artist</title>
         </head>
         <body>
             <h:form id="artistForm">
