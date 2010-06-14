@@ -10,7 +10,7 @@
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <f:view>
     <html>
@@ -19,12 +19,15 @@
             <title>Add Item to shopping cart</title>
         </head>
         <body>
-           <h:form id="artistForm">
-           <h:outputText value="Insert Artist Name"/>
-           <br/>
-           <h:inputText id="name" value="#{sBean.artistName}"/>
-           <h:commandButton action="#{sBean.findArtists}" value="search" />
-     </h:form>
-     </body>
+            <h:form id="artistForm">
+                <h:outputText value="Insert Artist Name"/>
+                <br/>
+                <h:inputText id="name" value="#{sBean.artistName}"/>
+                <h:commandButton action="#{sBean.findArtists}" value="search" />
+                <br/>
+                <br/>
+                <h2><h:outputLink value="cartContents.jsp"><h:outputText value="Show Cart"/></h:outputLink></h2>
+            </h:form>
+        </body>
     </html>
 </f:view>

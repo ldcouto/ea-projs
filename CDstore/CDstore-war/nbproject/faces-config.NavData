@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
-    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Faces Configuration Only">
+        <Node id="artArtista.jsp" x="329" y="126" zoom="true"/>
+        <Node id="listarts.jsp" x="95" y="491" zoom="true"/>
+        <Node id="index.jsp" x="528" y="308" zoom="true"/>
+        <Node id="cartContents.jsp" x="723" y="515" zoom="true"/>
+        <Node id="addItem.jsp" x="736" y="347" zoom="true"/>
+        <Node id="artistResults.jsp" x="150" y="300" zoom="true"/>
+        <Node id="welcomeJSF.jsp" x="509" y="103" zoom="true"/>
+    </Scope>
     <Scope Scope="Project">
         <Node id="listarts.jsp" x="54" y="234" zoom="true"/>
         <Node id="artArtista.jsp" x="509" y="142" zoom="true"/>
