@@ -28,8 +28,17 @@
                     <f:facet name="header"><h:outputText value="Código" /></f:facet>
                     <h:outputText value="#{items.codigo}" />
                 </h:column>
-            </h:dataTable>
+                <h:column>
+                   <f:facet name="header"><h:outputText value="Remover Artigo" /></f:facet>
 
+                    <h:form>
+                        <h:commandLink action="#{sBean.removeItem}">
+                            <h:outputText value="Clicar aqui" />
+                            <f:param name="codDisco" value = "#{items.codigo}" />
+                        </h:commandLink>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
         </body>
     </html>
 </f:view>
