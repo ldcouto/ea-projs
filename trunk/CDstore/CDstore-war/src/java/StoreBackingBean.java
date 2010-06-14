@@ -4,6 +4,7 @@ import dal.Artista;
 import facades.ShoppingCartBeanRemote;
 import facades.StoreSessionBeanRemote;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
@@ -19,9 +20,8 @@ import javax.faces.context.FacesContext;
  *
  * @author ldc
  */
+public class StoreBackingBean {
 
-public class StoreBackingBean
-{
     String artistName;
     ArrayList<Artista> artistas;
     ArrayList<Artigo> artigos;
@@ -33,75 +33,55 @@ public class StoreBackingBean
     @EJB
     ShoppingCartBeanRemote scb;
 
-    public String getPass()
-    {
+    public String getPass() {
         return pass;
     }
 
-    public StoreBackingBean()
-    {
-        artistas = new ArrayList<Artista>();
-        artistas.add(new Artista("art1", "Prince"));
-
-    }
-
-    public void setPass(String pass)
-    {
+    public void setPass(String pass) {
         this.pass = pass;
     }
 
-    public String getUser()
-    {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(String user)
-    {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    public ArrayList<Artigo> getArtigos()
-    {
+    public ArrayList<Artigo> getArtigos() {
         return artigos;
     }
 
-    public void setArtigos(ArrayList<Artigo> artigos)
-    {
+    public void setArtigos(ArrayList<Artigo> artigos) {
         this.artigos = artigos;
     }
 
-    public ArrayList<Artista> getArtistas()
-    {
+    public ArrayList<Artista> getArtistas() {
         return artistas;
     }
 
-    public String getItemCode()
-    {
+    public String getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(String itemCode)
-    {
+    public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
 
-    public void setArtistas(ArrayList<Artista> artistas)
-    {
+    public void setArtistas(ArrayList<Artista> artistas) {
         this.artistas = artistas;
     }
 
-    public String getArtistName()
-    {
+    public String getArtistName() {
         return artistName;
     }
 
-    public void setArtistName(String artistName)
-    {
+    public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
 
-    public String showDetails()
-    {
+    public String showDetails() {
         FacesContext fc = FacesContext.getCurrentInstance();
         String param = fc.getExternalContext().getRequestParameterMap().get("nomeArtista");
 
@@ -113,23 +93,49 @@ public class StoreBackingBean
         return "discosArtista";
     }
 
-    public String findArtists()
-    {
+    public String findArtists() {
         artistas = new ArrayList<Artista>();
         //     artistas = (ArrayList<Artista>) ssb.findAllArtistas();
         artistas = (ArrayList<Artista>) ssb.findArtistByName(artistName);
         return "search";
     }
 
-    public String addItemToCart()
-    {
-        Artigo a = ssb.findArtigo(itemCode);
+    public String addItemToCart() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String param = fc.getExternalContext().getRequestParameterMap().get("codDisco");
+
+        Artigo a = null;
+
+        for (Artigo ia : artigos) {
+            if (ia.getCodigo().equals(param)) {
+                a = ia;
+                break;
+            }
+        }
         scb.addItem(a);
         return "showCart";
     }
 
-    public List<Artigo> getCartContents()
-    {
+    public String removeItem() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String param = fc.getExternalContext().getRequestParameterMap().get("codDisco");
+
+        Artigo a = null;
+
+        Iterator itr = scb.getProducts().iterator();
+
+        while (itr.hasNext()) {
+            Artigo ia = (Artigo) itr.next();
+            if (ia.getCodigo().equals(param)) {
+                a = ia;
+                itr.remove();
+                break;
+            }
+        }
+        return "itemRemoved";
+    }
+
+    public List<Artigo> getCartContents() {
         return scb.getProducts();
     }
 }
