@@ -27,11 +27,11 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header"><h:outputText value="Stock" /></f:facet>
-                   <h:outputText value="#{artigo.stock}" />
+                    <h:outputText value="#{artigo.stock}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header"><h:outputText value="Comprar" /></f:facet>
-                   <h:form>
+                    <h:form>
                         <h:commandLink action="#{sBean.addItemToCart}">
                             <h:outputText value="Comprar" />
                             <f:param name="codDisco" value = "#{artigo.codigo}" />
@@ -39,6 +39,11 @@
                     </h:form>
                 </h:column>
             </h:dataTable>
+
+            <br/>
+            <br/>
+            <h2><h:outputLink value="cartContents.jsp"><h:outputText value="Show Cart"/></h:outputLink></h2>
+
         </body>
     </html>
 </f:view>
