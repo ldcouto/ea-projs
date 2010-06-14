@@ -13,7 +13,7 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>JSP Page</title>
+            <title>Welcome</title>
         </head>
         <body>
             <h1><h:outputText value="Welcome to the CD Store"/></h1>
